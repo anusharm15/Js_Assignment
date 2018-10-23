@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "webpack & webpack --watch",
     "build": "webpack",
-    "web": "webpack-dev-server --content-base ./ --port 8080 --hot & npm run build & npm run watch"
+    "web": "webpack-dev-server --content-base ./ --port 3000 --hot & npm run build & npm run watch"
   },
   "keywords": [
     "webpack"
