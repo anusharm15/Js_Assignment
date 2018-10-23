@@ -1,0 +1,664 @@
+body{
+	margin: 0 auto;
+	//background-color: #e2dae2;
+	width: 80%;
+	//font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: 'Lato light', sans-serif;
+	font-size: 1rem;
+	word-spacing: 2px;
+}
+
+header{
+	text-align: left;
+	height: 100px;
+	margin-top: 10px;
+}
+
+section.List_View ul.list_header{
+	list-style-type: none;
+	display: flex;
+	padding: 0;
+	font-weight: 300;
+	text-transform: uppercase;
+    color: #716d6d;
+    letter-spacing: 1px;
+    border-top: 1px solid #ccc;
+    border-bottom: 7px solid #ccc;
+    padding: 1rem 0 1rem 0
+}
+section.List_View ul.list_header li:first-child{
+	flex-basis: 70%;
+}
+section.List_View ul.list_header li.other{
+	flex: 1;text-align: center;
+}
+section.List_View ul.list_header li:last-child{
+	flex: 1;text-align: right;
+}
+section.List_View ul.list_section{
+	list-style-type: none;margin: 0;padding: 0;
+}
+section.List_View ul.list_section > li:not(:last-child){
+	border-bottom: 1px solid #ccc;padding-bottom: 2rem;margin-bottom: 2rem;
+}
+.listitem_block{
+	display: flex;
+}
+.peritem_block{
+	flex-basis: 70%;
+}
+.img_block{
+	float: left;
+	width: 12rem;
+	height: 12rem;
+}
+.img_block img{
+	height: 100%;
+	width: 100%;
+}
+.content_block{
+	line-height: 0.2;
+	padding: 10px 0 0px 0px;
+	display: flex;
+	flex-direction: column;
+}
+.item_title{
+	word-spacing: 5px;color: #5f5d5d;font-size: 1.1rem;
+}
+.content_block p{
+	color: #797474;font-weight: 300;line-height: 0.5;
+}
+.action_block{
+	display:flex;
+	flex-direction: row;
+	list-style-type: none;
+	padding: 0;
+	margin-top: 3rem;
+	text-transform: uppercase;    
+	font-weight: 300;color: #797474;
+	font-size: 0.9rem;
+}
+.action_block li a{
+	text-decoration: none;
+	color: #797474;
+}
+.action_block li:not(:last-child){
+	border-right: 1px solid #ccc; 
+}
+.size, .quantity{
+	flex: 1;text-align: center;color: #5f5d5d;
+}
+.quantity input[type=text]{
+	width:50px;height:30px;color: #5f5d5d;text-align: center;
+}
+.price{
+	flex: 1;text-align: right;font-size: 1.2rem;
+}
+
+.edit li:not(:last-child){
+	border-right: 1px solid #ccc;
+}
+.horizontal_line{
+	border-bottom: 7px solid #ccc;padding: 10px;
+}
+.article{
+	display: flex;
+	margin: 6rem 0 1rem 0;
+	flex-direction: row;
+}
+.left_article{
+	flex-basis: 30%;
+}
+a.except{
+	font-weight: 100;
+	color: #807979;
+	text-decoration: none;
+}
+.left_article .leftContent a:not(.except){
+	font-weight: 100;
+	text-decoration: underline;
+	color: #807979;
+}
+.right_article{
+	flex-basis: 70%;
+	border-bottom: 7px solid #ccc;
+}
+
+.right_article div.promotion{
+	display: flex;
+	border-bottom: 7px solid #ccc;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+}
+
+.right_article div.promotion .code{
+	flex-grow:3;text-transform: uppercase;    word-spacing: 2px;
+    letter-spacing: 0.5px;
+    font-weight: 300;
+    color: #5a5757;
+}
+
+.right_article div.promotion p input[type=text]{
+	width: 12rem;height: 2.5rem;
+	background-color: transparent;
+	border: 1px solid #ccc;
+}
+
+.right_article div.promotion p input[type=button]{
+	height: 2.5rem;
+    padding: 0 2.3rem 0 2.3rem;
+    background: transparent;
+    color: #000;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 1px solid #ccc;
+}
+.invoice_block{
+	display: flex;flex-direction: column;
+}
+
+.subtotal_block, .coupon_block, .estimate_block{
+	padding: 1rem 0 1rem 0;
+}
+
+.subtotal_block .subtotal, .coupon_block .coupon, .estimate_block .estimate{
+	float: left;
+	width: 50%;
+}
+.subtotal_block .sub_amount, .coupon_block .coupon_amount, .estimate_block .estimate_amount {
+	text-align: right;
+}
+
+.common{
+	line-height: 1;
+	color: #a29e9e;
+	word-spacing: 2px;
+	font-size: 0.9rem;
+}
+
+.small{
+	display: none;
+}
+.large{
+	display: block;
+}
+.total_block{
+	padding: 1rem 0 1rem 0;
+    border-top: 1px solid #ccc;
+    margin: 1.5rem 0 0rem 0;
+}
+.total_block .total{
+	float: left;
+	width: 50%;
+}
+.total_block .total_amount{
+	text-align: right;
+}
+
+footer{
+	margin-bottom: 1rem;
+}
+footer .continue_block{
+	display:flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+footer .continue_block div.continue_link a{
+	color: #4c4545;
+    font-weight: 300;
+    text-decoration: underline;
+    padding: 10px;
+    font-size: small;letter-spacing: 1px;vertical-align: -webkit-baseline-middle;
+}
+footer .continue_block  .continue_btn input[type=button]{
+	background-color: #1761af;
+    color: #fff;
+    /* padding: 1rem; */
+    width: 8rem;
+    height: 2.5rem;
+    font-size: 13px;
+    letter-spacing: 1px;
+    border: 1px solid #ccc;
+}
+footer .secure_block{
+		display: flex;
+		flex-direction: row;
+		color: #ada9a9;
+		font-size: 0.9rem;
+		justify-content: flex-end;
+}
+footer .secure_text{
+	padding: 10px 0 0 0;
+}
+.signin{
+	display: none;
+	padding: 1rem;color: #a29e9e;font-size: 0.9rem;
+}
+.signin a{
+	text-transform: uppercase;text-decoration: underline;color: #a29e9e;
+}
+#itemOnHeader{
+	display: none;
+	text-align: right;
+    font-weight: 300;
+    text-transform: uppercase;
+    color: #716d6d;
+    letter-spacing: 1px;
+}
+.quantity_mobile, .size_mobile, .price_mobile{
+	display: none;
+}
+.quantity_mobile{
+		padding: 0.5rem 0 0.5rem 0;
+}
+.quantity_mobile input[type=text]{
+	width: 40px;
+	text-align: center;
+}
+.price_mobile{
+	font-size: 1.2rem;
+    letter-spacing: 1px;
+    color: #3e3e3e !important;
+}
+
+/********* modal **********/
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    padding-top: 100px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto;
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 25px;
+    border: 1px solid #888;
+    width: 80%;
+}
+.modal-body{
+	display: flex;flex-direction: row
+}
+.modal-body .modal_leftpart{
+	flex-basis: 50%;text-align: center;
+}
+.modal-body .modal_leftpart .mainBlock_leftPart{
+	display: flex;flex-direction: column;padding-top: 0rem;
+}
+.line{
+	width: 50%;margin-left: 25%;margin-bottom: 2rem;border-bottom:6px inset #e4e1e1
+}
+.content_leftpart h4{
+	letter-spacing: 1px;color: #6d6666;;font-weight: 100;font-size: 1.2rem;
+}
+.content_leftpart p{
+	font-size: 4rem;
+    font-family: serif;
+    margin: 0;
+}
+.content_leftpart p sup{
+	font-size: 55%;
+    padding: 10px 10px 10px 10px;
+    font-weight: 100;
+}
+.content_leftpart div {
+	font-weight: 100;display: inline-block;line-height: 2;
+}
+.content_leftpart div a{
+	background-color: #e4e473;
+    width: 30px;
+    height: 22px;
+    float: left;
+    margin: 0 0.5rem 1rem 0.5rem;
+}
+.content_leftpart div a:hover{
+	width: 32px;
+	border: 1px solid #ccc;
+}
+.content_leftpart div a:last-child{
+	background-color: #8ac58a;
+    width: 30px;
+    height: 22px;
+    display: block;
+}
+.content_leftpart div a:last-child:hover{
+	width: 32px;
+	border: 1px solid #ccc;
+}
+.editbtn{
+	margin-top: 1rem;
+}
+.editbtn input[type=button]{
+	background-color: #1761af;
+	color: #fff;
+	width: 10rem;height: 3.5rem;
+	font-size: 14px;letter-spacing: 1px;
+	border: 1px solid #ccc;
+	font-weight: 300;
+}
+.detail_link{
+	margin-top: 1rem;letter-spacing: 1px;font-size: 0.9rem;
+}
+.detail_link a{
+	text-decoration: underline;color: #000
+}
+.modal_rightpart{
+	flex-basis: 50%;text-align: center;
+}
+.modal_rightpart img{
+	width: 80%;
+	max-height: 400px;
+}
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/******** custom select box ****/
+.styled-select {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+.styled-select, .styled-select select {
+ 	font-size: 0.9rem;
+    width: 90px;
+    display: inline-block;
+    font-weight: 300;
+}
+select:focus { outline: none; }
+.styled-select select {
+  height: 34px;
+  padding: 5px 0 5px 5px;
+  background: transparent;
+  border: none;
+  
+  /*hide default down arrow in webkit */
+  -webkit-appearance: none; 
+}
+
+@-moz-document url-prefix(){
+  .styled-select select { width: 110%; }
+}
+
+.fa-sort-desc {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  font-size: 24px;
+  color: #ccc;
+}
+
+
+@media only screen and (min-width: 650px) and (max-width: 1000px){
+	.right_article div.promotion{
+		flex-wrap: wrap;
+	}
+	.left_article{
+		flex-basis: 35%;
+	}
+	.total_block .total{
+		width: 60%;
+	}
+	.peritem_block{
+		flex-basis: 65%;
+	}
+	.listitem_block{
+		font-size: 0.9rem;
+	}
+	section.List_View ul.list_header li:first-child{
+		flex-basis: 65%;
+	}
+	section.List_View ul.list_header{
+		font-size: 0.9rem;
+	}
+	.action_block{
+		clear: both;
+		justify-content: space-evenly;
+    	padding-top: 1.5rem;
+	}
+	.modal_rightpart img{
+		width: 100%;
+	}
+
+}
+
+@media only screen and (max-width: 650px){
+	body{
+		width: 85%;
+	}
+	.c{
+		display: none;
+	}
+	header{
+		height: auto;
+	}
+	header h1{
+		font-size: 1.4rem;
+	}
+	section article.left_article{
+		display: none;
+	}
+
+	.large{
+		display: none;
+	}
+	.small{
+		display: block;
+	}
+
+	.article{
+		margin: 1.2rem 0 1.2rem 0;
+	}
+	.right_article{
+		flex-basis: 100%;
+	}
+
+	.right_article div.promotion{
+		display: block;
+		text-align: center;
+		border-bottom: 2px solid #ccc;
+	}
+	.right_article div.promotion .code{
+	}
+	.right_article div.promotion p input[type=text]{
+		float: left;
+		width: 10rem;
+	}
+	.coupon_block{
+		order: 3;
+	}
+	.invoice_block{
+		order: 2;
+	}
+	.total_block{
+		order: 4;
+	}
+	.subtotal_block .sub_amount, .coupon_block .coupon_amount {
+		font-size: 1.3rem;
+	}
+	.subtotal_block .subtotal, .coupon_block .coupon, .estimate_block .estimate{
+		font-size: 0.9rem;
+	}
+	.total_block .total h4{
+		font-size: 1rem;
+	}
+	.total_block .total_amount h4{
+		font-size: 1.9rem;
+	}
+	.right_article{
+		border: none;
+	}
+	footer .continue_block{
+		display:flex;
+		flex-direction: column-reverse;
+	}
+	footer .continue_block div.continue_link{
+		text-align: center;
+		padding: 1rem;
+	}
+	footer .continue_block  .continue_btn {
+		width: 100%
+	}
+
+	footer .continue_block  .continue_btn input[type=button]{
+		background-color: #1761af;
+	    color: #fff;
+	    /* padding: 1rem; */
+	    width: 100%;
+	    height: 2.5rem;
+	    font-size: 13px;
+	    letter-spacing: 1px;
+	}
+	footer .secure_block{
+		flex-direction: column-reverse;
+		text-align: center;
+		padding: 0 1.5rem 0 1.5rem;
+	}
+	.signin{
+		display: block;
+	}
+	.peritem_block{
+		flex-basis: 100%;
+		/*flex-direction: row;*/
+	}
+	.action_block{
+		clear: both;
+		justify-content: space-evenly;
+    	padding-top: 1.5rem;
+    	margin-top: 0;
+	}
+	.size, .quantity, .price{
+		display: none;
+	}
+	section.List_View ul.list_header li{
+		display: none;
+	}
+	section.List_View ul.list_header{
+		border-top: none;
+		padding: 0 0 1rem 0;
+	}
+	#itemOnHeader{
+		display: block;
+	}
+	.items_small{
+		display: block;
+	}
+	.img_block{
+		width: 11rem;
+		height: 11rem;
+	}
+	.quantity_mobile, .size_mobile, .price_mobile{
+		display: block;
+	}
+	.content_block p{
+		line-height: 0;
+	}
+	.listitem_block{
+		font-size: 0.9rem;
+	}
+	.modal-body{
+		flex-direction: column;
+	}
+	.modal_leftpart{
+		order: 2;
+	}
+	.modal{
+		padding-top: 50px;
+	}
+	.modal_rightpart img{
+		width: 60%;
+		max-height: 300px;
+	}
+	.content_leftpart h4{
+		font-size: 1rem;
+	}
+	.content_leftpart p{
+		font-size: 2.5rem;
+	}
+	.modal-content{
+		padding: 10px;
+	}
+	.modal-body .modal_leftpart .mainBlock_leftPart{
+		padding-top: 1rem;
+	}
+}
+
+@media only screen and (max-width: 400px){
+	body{
+		word-spacing: 1px;
+		font-size: 0.8rem;
+	}
+	header{
+		height: auto;
+	}
+	header h1{
+		font-size: 1.2rem;
+	}
+	.right_article div.promotion p input[type=text]{
+		width: 8rem;
+	}
+	.right_article div.promotion p input[type=button]{
+		padding: 0 2rem 0 2rem;
+	}
+	.subtotal_block .sub_amount, .coupon_block .coupon_amount {
+		font-size: 1.1rem;
+	}
+	.subtotal_block .subtotal, .coupon_block .coupon, .estimate_block .estimate{
+		font-size: 0.8rem;
+	}
+	.total_block .total h4{
+		font-size: 0.8rem;
+	}
+	.total_block .total_amount h4{
+		font-size: 1.6rem;
+	}
+	.common{
+		font-size: 0.8rem;
+	}
+	.subtotal_block .subtotal, .estimate_block .estimate{
+		width: 55%;
+	}
+	.img_block{
+		width: 8rem;
+		height: 8rem;
+	}
+	.item_title{
+		font-size: 0.9rem;
+	}
+	.quantity_mobile{
+		padding: 0;
+	}
+	.price_mobile{
+		font-size: 1rem;
+	}
+	.modal{
+		padding-top: 20px;
+	}
+	.modal_rightpart img{
+		width: 50%;
+		max-height: 200px;
+	}
+}
