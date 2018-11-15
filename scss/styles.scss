@@ -312,26 +312,40 @@ footer .secure_text{
 .content_leftpart div {
 	font-weight: 100;display: inline-block;line-height: 2;
 }
-.content_leftpart div a{
+.content_leftpart div .yellow{
 	background-color: #e4e473;
     width: 30px;
     height: 22px;
     float: left;
     margin: 0 0.5rem 1rem 0.5rem;
 }
-.content_leftpart div #yellow:hover{
+.content_leftpart div .yellow:hover{
 	transform: scale(1.2);
-	border: 1px solid #ccc;
+	border: 1px solid #0e0e0e;
 }
-.content_leftpart div a:last-child{
+.content_leftpart div .green{
 	background-color: #8ac58a;
     width: 30px;
     height: 22px;
-    display: block;
+    float: left;
 }
-.content_leftpart div #green:hover{
+.content_leftpart div .green:hover{
 	transform: scale(1.2);
-	border: 1px solid #ccc;
+	border: 1px solid #0e0e0e;
+}
+.content_leftpart div .default{
+    width: 30px;
+    height: 22px;
+    float: left;
+    margin: 0 1rem 1rem 0.5rem;
+}
+.content_leftpart div .default:hover{
+	transform: scale(1.2);
+	border: 1px solid #0e0e0e;
+}
+.active{
+	transform: scale(1.2);
+	border: 1px solid #0e0e0e;
 }
 .editbtn{
 	margin-top: 1rem;

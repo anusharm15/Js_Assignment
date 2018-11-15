@@ -189,7 +189,7 @@ var controller = (function() {
 			html +=`<div class="modal_leftpart">
 						<div class="mainBlock_leftPart">
 			   			<div class="line"></div>
-			   			<div class="content_leftpart"><h4>${obj.title}</h4><p><sup>$</sup>${obj.price}</p><div>${obj.style} <br> <a href="javascript:void(0)" id="yellow"></a><a href="javascript:void(0)" id="green"></a></div></div><div>
+			   			<div class="content_leftpart"><h4>${obj.title}</h4><p><sup>$</sup>${obj.price}</p><div>${obj.style} <br> <a href="javascript:void(0)" id="${obj.id}" class="yellow"></a><a href="javascript:void(0)" id="${obj.id}" class="green"></a><a href="javascript:void(0)" id="${obj.id}" class="default"></a></div></div><div>
 			   				<div class="styled-select">
 							   <select id="size_select">
 							     <option> SIZE : </option>
@@ -228,9 +228,16 @@ var controller = (function() {
 		bindevents_Popup: function(obj){
 			var selected_color = obj.color;
 			var ref = this;
+			var bgcolor = "";
+			
+			for(var i=0; i<obj.imgArr.length; i++){
+				if(obj.imgArr[i].default){
+				 	bgcolor = obj.imgArr[i].default.split(".")[0];
+				}
+			}
+			$(".default").css("background-color", bgcolor)			
 
-			$("#yellow").hover(function(){
-				//selected_color = $(this)[0].id;
+			$(".yellow").hover(function(){
 				for(var i=0; i<obj.imgArr.length; i++){
 					if(obj.imgArr[i].yellow){
 						var yellow = obj.imgArr[i].yellow;
@@ -239,9 +246,7 @@ var controller = (function() {
 				var img = "images/"+yellow;
 				$(".modal_rightpart").find("img").attr("src", img);
 			})
-
-			$("#green").hover(function(){
-				//selected_color = $(this)[0].id;
+			$(".green").hover(function(){
 				for(var i=0; i<obj.imgArr.length; i++){
 					if(obj.imgArr[i].green){
 						var green = obj.imgArr[i].green;
@@ -250,17 +255,35 @@ var controller = (function() {
 				var img = "images/"+green;
 				$(".modal_rightpart").find("img").attr("src", img)
 			})
-
-			$("#yellow").click(function(){
-				selected_color = $(this)[0].id;
-				$(this).css("background-color","#ecec0d")
-				$("#green").css("background-color","#8ac58a")
+			$(".default").hover(function(){
+				for(var i=0; i<obj.imgArr.length; i++){
+					if(obj.imgArr[i].default){
+						var color = obj.imgArr[i].default;
+					}
+				}
+				var img = "images/"+color;
+				$(".modal_rightpart").find("img").attr("src", img)
 			})
 
-			$("#green").click(function(){
-				selected_color = $(this)[0].id;
-				$(this).css("background-color","#0eef0e")
-				$("#yellow").css("background-color","#e4e473")
+			$(".yellow").click(function(){
+				selected_color = "yellow";
+				$(this).addClass("active");
+				$("#green").removeClass("active");
+				$("#default").removeClass("active");
+			})
+
+			$(".green").click(function(){
+				selected_color = "green";
+				$(this).addClass("active");
+				$("#yellow").removeClass("active");
+				$("#default").removeClass("active");
+			})
+
+			$(".default").click(function(){
+				selected_color = bgcolor;
+				$(this).addClass("active");
+				$("#yellow").removeClass("active");
+				$("#green").removeClass("active");
 			})
 
 
