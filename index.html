@@ -3,6 +3,7 @@
 
 <head>
 	<title>Shopping Cart</title>
+	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
@@ -30,13 +31,13 @@
 <div class="loading">Loading&#8230;</div>
 
 <header>
-	<h1 style="font-weight: 300;float: left">YOUR SHOPPING BAG</h1>
+	<h1 style="font-weight: 300;float: left" data-role="heading">YOUR SHOPPING BAG</h1>
 	<p id="itemOnHeader">3 Items</p>
 </header>
 
 <!-- List Items Section -->
 <section class="List_View">
-		<ul class="list_header">
+		<ul class="list_header" data-role="listview" tabindex="-1">
 			<li>3 Items</li>
 			<li class="other">Size</li>
 			<li>Quantity</li>
@@ -52,7 +53,7 @@
 <!-- Below List Section -->
 <section class="article">
 	<article class="left_article">
-		<p>Need Help <br>or Have Questions ?</p>
+		<p data-role="heading">Need Help <br>or Have Questions ?</p>
 		<p class="leftContent"><a href="" class="except">Call Customer Service at <br> 1800-555-5555</a></p>
 		<p class="leftContent"><a href="">Chat with one of <br>our styllists</a></p>
 		<p class="leftContent"><a href="">See return <br>& exchange policy</a></p>
@@ -61,13 +62,13 @@
 		<div class="promotion">
 			<p class="code">Enter Promotion Code <br>Or Gift Card</p>
 			<p style="padding-right: 15px;"><input type="text"></p>
-			<p><input type="button" value="Apply"></p>
+			<p><input data-role="button" type="button" value="Apply"></p>
 			<div style="clear:both"></div>
 		</div>
 		<div class="invoice_block">
 			<div class="subtotal_block">
 				<div class="subtotal">SUBTOTAL</div> 
-				<div class="sub_amount"><sup>$</sup>37.00</div>
+				<div class="sub_amount"></div>
 			</div>
 			<div class="coupon_block">
 				<div class="coupon">PROMOTION CODE <strong>jf10</strong> APPLIED</div> 
@@ -84,7 +85,7 @@
 				<div class="total">
 					<h4>ESTIMATED TOTAL</h4>
 						<p class="common">Tax will be applied during checkout</p></div>
-					<div class="total_amount"><h4><sup>$</sup>-30.00</h4></div>
+					<div class="total_amount"></div>
 			</div>
 		</div>
 	</article>
@@ -97,7 +98,7 @@
 		<div class="continue_btn"><input type="button" value="CHECKOUT"></div>
 	</div>
 	<div class="secure_block">
-		<div><img src="images/lock.png" width="30" height="30"></div>
+		<div><img src="images/lock.png" width="30" height="30" alt="lock icon"></div>
 		<div class="secure_text">Secure Checkout. Shipping is always safe and secure</div>
 	</div>
 	<div class="signin">
@@ -106,7 +107,7 @@
 </footer>
 
 <!-- The Modal -->
-<div id="myModal" class="modal">
+<div id="myModal" class="modal" data-role="popup">
 	 <!-- Modal content -->
 	 <div class="modal-content">
 	    <span class="close">&times;</span>

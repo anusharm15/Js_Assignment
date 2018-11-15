@@ -1,21 +1,57 @@
 {
 	"data":[{
 		"id": "s1",
-		"img_name": "img1.png",
+		"img_name": "pink.png",
 		"title": "Solid Green Cotton Shirt",
-		"style": "# kt6017",
-		"color": "Blue"
+		"style": "MSKT0920KN",
+		"color": "Pink",
+		"price": "20.00",
+		"quantity": 1,
+		"size": "S",
+		"images":[
+			{
+				"default": "pink.png"
+			},{
+				"yellow": "yellow_chk.png"
+			},{	
+				"green": "green_chk.png"
+			}
+		]
 	},{
 		"id": "s2",
-		"img_name": "img2.png",
+		"img_name": "blue.png",
 		"title": "Print Rainbow Print Girls Tee",
-		"style": "# MSkt6555",
-		"color": "Gray"
+		"style": "MSRT0902JT",
+		"color": "Blue",
+		"price": "78.00",
+		"quantity": 2,
+		"size": "M",
+		"images":[
+			{
+				"default": "blue.png"
+			},{
+				"yellow": "yellow_plane.png"
+			},{	
+				"green": "green_plane.png"
+			}
+		]
 	},{
 		"id": "s3",
-		"img_name": "img3.png",
+		"img_name": "grey.png",
 		"title": "Blue Flower Pattern Shirt",
-		"style": "# MSkt123",
-		"color": "Orange"
+		"style": "MSBT8920RT",
+		"color": "Grey",
+		"price": "10.00",
+		"quantity": 1,
+		"size": "L",
+		"images":[
+			{
+				"default": "grey.png"
+			},{
+				"yellow": "yellow_plane.png"
+			},{	
+				"green": "green_plane.png"
+			}
+		]
 	}]
 }

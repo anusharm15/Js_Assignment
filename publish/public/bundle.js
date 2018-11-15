@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "./dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -68,7 +68,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(5);
+var content = __webpack_require__(6);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -265,7 +265,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(6);
+var	fixUrls = __webpack_require__(7);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -603,447 +603,6 @@ function updateLink (link, options, obj) {
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(4);
-module.exports = __webpack_require__(0);
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(0);
-
-__webpack_require__(7);
-
-var _render = __webpack_require__(9);
-
-window.addEventListener("DOMContentLoaded", function () {
-	_render.controller.loadData();
-});
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)(false);
-// imports
-
-
-// module
-exports.push([module.i, "body {\n  margin: 0 auto;\n  width: 80%;\n  font-family: 'Lato light', sans-serif;\n  font-size: 1rem;\n  word-spacing: 2px; }\n\nheader {\n  text-align: left;\n  height: 100px;\n  margin-top: 10px; }\n\nsection.List_View ul.list_header {\n  list-style-type: none;\n  display: flex;\n  padding: 0;\n  font-weight: 300;\n  text-transform: uppercase;\n  color: #716d6d;\n  letter-spacing: 1px;\n  border-top: 1px solid #ccc;\n  border-bottom: 7px solid #ccc;\n  padding: 1rem 0 1rem 0; }\n\nsection.List_View ul.list_header li:first-child {\n  flex-basis: 70%; }\n\nsection.List_View ul.list_header li.other {\n  flex: 1;\n  text-align: center; }\n\nsection.List_View ul.list_header li:last-child {\n  flex: 1;\n  text-align: right; }\n\nsection.List_View ul.list_section {\n  list-style-type: none;\n  margin: 0;\n  padding: 0; }\n\nsection.List_View ul.list_section > li:not(:last-child) {\n  border-bottom: 1px solid #ccc;\n  padding-bottom: 2rem;\n  margin-bottom: 2rem; }\n\n.listitem_block {\n  display: flex; }\n\n.peritem_block {\n  flex-basis: 70%; }\n\n.img_block {\n  float: left;\n  width: 12rem;\n  height: 12rem; }\n\n.img_block img {\n  height: 100%;\n  width: 100%; }\n\n.content_block {\n  line-height: 0.2;\n  padding: 10px 0 0px 0px;\n  display: flex;\n  flex-direction: column; }\n\n.item_title {\n  word-spacing: 5px;\n  color: #5f5d5d;\n  font-size: 1.1rem; }\n\n.content_block p {\n  color: #797474;\n  font-weight: 300;\n  line-height: 0.5; }\n\n.action_block {\n  display: flex;\n  flex-direction: row;\n  list-style-type: none;\n  padding: 0;\n  margin-top: 3rem;\n  text-transform: uppercase;\n  font-weight: 300;\n  color: #797474;\n  font-size: 0.9rem; }\n\n.action_block li a {\n  text-decoration: none;\n  color: #797474; }\n\n.action_block li:not(:last-child) {\n  border-right: 1px solid #ccc; }\n\n.size, .quantity {\n  flex: 1;\n  text-align: center;\n  color: #5f5d5d; }\n\n.quantity input[type=text] {\n  width: 50px;\n  height: 30px;\n  color: #5f5d5d;\n  text-align: center; }\n\n.price {\n  flex: 1;\n  text-align: right;\n  font-size: 1.2rem; }\n\n.edit li:not(:last-child) {\n  border-right: 1px solid #ccc; }\n\n.horizontal_line {\n  border-bottom: 7px solid #ccc;\n  padding: 10px; }\n\n.article {\n  display: flex;\n  margin: 6rem 0 1rem 0;\n  flex-direction: row; }\n\n.left_article {\n  flex-basis: 30%; }\n\na.except {\n  font-weight: 100;\n  color: #807979;\n  text-decoration: none; }\n\n.left_article .leftContent a:not(.except) {\n  font-weight: 100;\n  text-decoration: underline;\n  color: #807979; }\n\n.right_article {\n  flex-basis: 70%;\n  border-bottom: 7px solid #ccc; }\n\n.right_article div.promotion {\n  display: flex;\n  border-bottom: 7px solid #ccc;\n  margin-bottom: 2rem;\n  padding-bottom: 1rem; }\n\n.right_article div.promotion .code {\n  flex-grow: 3;\n  text-transform: uppercase;\n  word-spacing: 2px;\n  letter-spacing: 0.5px;\n  font-weight: 300;\n  color: #5a5757; }\n\n.right_article div.promotion p input[type=text] {\n  width: 12rem;\n  height: 2.5rem;\n  background-color: transparent;\n  border: 1px solid #ccc; }\n\n.right_article div.promotion p input[type=button] {\n  height: 2.5rem;\n  padding: 0 2.3rem 0 2.3rem;\n  background: transparent;\n  color: #000;\n  letter-spacing: 2px;\n  text-transform: uppercase;\n  border: 1px solid #ccc; }\n\n.invoice_block {\n  display: flex;\n  flex-direction: column; }\n\n.subtotal_block, .coupon_block, .estimate_block {\n  padding: 1rem 0 1rem 0; }\n\n.subtotal_block .subtotal, .coupon_block .coupon, .estimate_block .estimate {\n  float: left;\n  width: 50%; }\n\n.subtotal_block .sub_amount, .coupon_block .coupon_amount, .estimate_block .estimate_amount {\n  text-align: right; }\n\n.common {\n  line-height: 1;\n  color: #a29e9e;\n  word-spacing: 2px;\n  font-size: 0.9rem; }\n\n.small {\n  display: none; }\n\n.large {\n  display: block; }\n\n.total_block {\n  padding: 1rem 0 1rem 0;\n  border-top: 1px solid #ccc;\n  margin: 1.5rem 0 0rem 0; }\n\n.total_block .total {\n  float: left;\n  width: 50%; }\n\n.total_block .total_amount {\n  text-align: right; }\n\nfooter {\n  margin-bottom: 1rem; }\n\nfooter .continue_block {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end; }\n\nfooter .continue_block div.continue_link a {\n  color: #4c4545;\n  font-weight: 300;\n  text-decoration: underline;\n  padding: 10px;\n  font-size: small;\n  letter-spacing: 1px;\n  vertical-align: -webkit-baseline-middle; }\n\nfooter .continue_block .continue_btn input[type=button] {\n  background-color: #1761af;\n  color: #fff;\n  /* padding: 1rem; */\n  width: 8rem;\n  height: 2.5rem;\n  font-size: 13px;\n  letter-spacing: 1px;\n  border: 1px solid #ccc; }\n\nfooter .secure_block {\n  display: flex;\n  flex-direction: row;\n  color: #ada9a9;\n  font-size: 0.9rem;\n  justify-content: flex-end; }\n\nfooter .secure_text {\n  padding: 10px 0 0 0; }\n\n.signin {\n  display: none;\n  padding: 1rem;\n  color: #a29e9e;\n  font-size: 0.9rem; }\n\n.signin a {\n  text-transform: uppercase;\n  text-decoration: underline;\n  color: #a29e9e; }\n\n#itemOnHeader {\n  display: none;\n  text-align: right;\n  font-weight: 300;\n  text-transform: uppercase;\n  color: #716d6d;\n  letter-spacing: 1px; }\n\n.quantity_mobile, .size_mobile, .price_mobile {\n  display: none; }\n\n.quantity_mobile {\n  padding: 0.5rem 0 0.5rem 0; }\n\n.quantity_mobile input[type=text] {\n  width: 40px;\n  text-align: center; }\n\n.price_mobile {\n  font-size: 1.2rem;\n  letter-spacing: 1px;\n  color: #3e3e3e !important; }\n\n/********* modal **********/\n.modal {\n  display: none;\n  position: fixed;\n  z-index: 1;\n  padding-top: 100px;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  background-color: black;\n  background-color: rgba(0, 0, 0, 0.4); }\n\n/* Modal Content */\n.modal-content {\n  background-color: #fefefe;\n  margin: auto;\n  padding: 25px;\n  border: 1px solid #888;\n  width: 80%; }\n\n.modal-body {\n  display: flex;\n  flex-direction: row; }\n\n.modal-body .modal_leftpart {\n  flex-basis: 50%;\n  text-align: center; }\n\n.modal-body .modal_leftpart .mainBlock_leftPart {\n  display: flex;\n  flex-direction: column;\n  padding-top: 0rem; }\n\n.line {\n  width: 50%;\n  margin-left: 25%;\n  margin-bottom: 2rem;\n  border-bottom: 6px inset #e4e1e1; }\n\n.content_leftpart h4 {\n  letter-spacing: 1px;\n  color: #6d6666;\n  font-weight: 100;\n  font-size: 1.2rem; }\n\n.content_leftpart p {\n  font-size: 4rem;\n  font-family: serif;\n  margin: 0; }\n\n.content_leftpart p sup {\n  font-size: 55%;\n  padding: 10px 10px 10px 10px;\n  font-weight: 100; }\n\n.content_leftpart div {\n  font-weight: 100;\n  display: inline-block;\n  line-height: 2; }\n\n.content_leftpart div a {\n  background-color: #e4e473;\n  width: 30px;\n  height: 22px;\n  float: left;\n  margin: 0 0.5rem 1rem 0.5rem; }\n\n.content_leftpart div a:hover {\n  width: 32px;\n  border: 1px solid #ccc; }\n\n.content_leftpart div a:last-child {\n  background-color: #8ac58a;\n  width: 30px;\n  height: 22px;\n  display: block; }\n\n.content_leftpart div a:last-child:hover {\n  width: 32px;\n  border: 1px solid #ccc; }\n\n.editbtn {\n  margin-top: 1rem; }\n\n.editbtn input[type=button] {\n  background-color: #1761af;\n  color: #fff;\n  width: 10rem;\n  height: 3.5rem;\n  font-size: 14px;\n  letter-spacing: 1px;\n  border: 1px solid #ccc;\n  font-weight: 300; }\n\n.detail_link {\n  margin-top: 1rem;\n  letter-spacing: 1px;\n  font-size: 0.9rem; }\n\n.detail_link a {\n  text-decoration: underline;\n  color: #000; }\n\n.modal_rightpart {\n  flex-basis: 50%;\n  text-align: center; }\n\n.modal_rightpart img {\n  width: 80%;\n  max-height: 400px; }\n\n/* The Close Button */\n.close {\n  color: #aaaaaa;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n  text-align: right; }\n\n.close:hover,\n.close:focus {\n  color: #000;\n  text-decoration: none;\n  cursor: pointer; }\n\n/******** custom select box ****/\n.styled-select {\n  border: 1px solid #ccc;\n  box-sizing: border-box;\n  border-radius: 3px;\n  overflow: hidden;\n  position: relative; }\n\n.styled-select, .styled-select select {\n  font-size: 0.9rem;\n  width: 90px;\n  display: inline-block;\n  font-weight: 300; }\n\nselect:focus {\n  outline: none; }\n\n.styled-select select {\n  height: 34px;\n  padding: 5px 0 5px 5px;\n  background: transparent;\n  border: none;\n  /*hide default down arrow in webkit */\n  -webkit-appearance: none; }\n\n@-moz-document url-prefix() {\n  .styled-select select {\n    width: 110%; } }\n\n.fa-sort-desc {\n  position: absolute;\n  top: 0;\n  right: 12px;\n  font-size: 24px;\n  color: #ccc; }\n\n@media only screen and (min-width: 650px) and (max-width: 1000px) {\n  .right_article div.promotion {\n    flex-wrap: wrap; }\n  .left_article {\n    flex-basis: 35%; }\n  .total_block .total {\n    width: 60%; }\n  .peritem_block {\n    flex-basis: 65%; }\n  .listitem_block {\n    font-size: 0.9rem; }\n  section.List_View ul.list_header li:first-child {\n    flex-basis: 65%; }\n  section.List_View ul.list_header {\n    font-size: 0.9rem; }\n  .action_block {\n    clear: both;\n    justify-content: space-evenly;\n    padding-top: 1.5rem; }\n  .modal_rightpart img {\n    width: 100%; } }\n\n@media only screen and (max-width: 650px) {\n  body {\n    width: 85%; }\n  .c {\n    display: none; }\n  header {\n    height: auto; }\n  header h1 {\n    font-size: 1.4rem; }\n  section article.left_article {\n    display: none; }\n  .large {\n    display: none; }\n  .small {\n    display: block; }\n  .article {\n    margin: 1.2rem 0 1.2rem 0; }\n  .right_article {\n    flex-basis: 100%; }\n  .right_article div.promotion {\n    display: block;\n    text-align: center;\n    border-bottom: 2px solid #ccc; }\n  .right_article div.promotion p input[type=text] {\n    float: left;\n    width: 10rem; }\n  .coupon_block {\n    order: 3; }\n  .invoice_block {\n    order: 2; }\n  .total_block {\n    order: 4; }\n  .subtotal_block .sub_amount, .coupon_block .coupon_amount {\n    font-size: 1.3rem; }\n  .subtotal_block .subtotal, .coupon_block .coupon, .estimate_block .estimate {\n    font-size: 0.9rem; }\n  .total_block .total h4 {\n    font-size: 1rem; }\n  .total_block .total_amount h4 {\n    font-size: 1.9rem; }\n  .right_article {\n    border: none; }\n  footer .continue_block {\n    display: flex;\n    flex-direction: column-reverse; }\n  footer .continue_block div.continue_link {\n    text-align: center;\n    padding: 1rem; }\n  footer .continue_block .continue_btn {\n    width: 100%; }\n  footer .continue_block .continue_btn input[type=button] {\n    background-color: #1761af;\n    color: #fff;\n    /* padding: 1rem; */\n    width: 100%;\n    height: 2.5rem;\n    font-size: 13px;\n    letter-spacing: 1px; }\n  footer .secure_block {\n    flex-direction: column-reverse;\n    text-align: center;\n    padding: 0 1.5rem 0 1.5rem; }\n  .signin {\n    display: block; }\n  .peritem_block {\n    flex-basis: 100%;\n    /*flex-direction: row;*/ }\n  .action_block {\n    clear: both;\n    justify-content: space-evenly;\n    padding-top: 1.5rem;\n    margin-top: 0; }\n  .size, .quantity, .price {\n    display: none; }\n  section.List_View ul.list_header li {\n    display: none; }\n  section.List_View ul.list_header {\n    border-top: none;\n    padding: 0 0 1rem 0; }\n  #itemOnHeader {\n    display: block; }\n  .items_small {\n    display: block; }\n  .img_block {\n    width: 11rem;\n    height: 11rem; }\n  .quantity_mobile, .size_mobile, .price_mobile {\n    display: block; }\n  .content_block p {\n    line-height: 0; }\n  .listitem_block {\n    font-size: 0.9rem; }\n  .modal-body {\n    flex-direction: column; }\n  .modal_leftpart {\n    order: 2; }\n  .modal {\n    padding-top: 50px; }\n  .modal_rightpart img {\n    width: 60%;\n    max-height: 300px; }\n  .content_leftpart h4 {\n    font-size: 1rem; }\n  .content_leftpart p {\n    font-size: 2.5rem; }\n  .modal-content {\n    padding: 10px; }\n  .modal-body .modal_leftpart .mainBlock_leftPart {\n    padding-top: 1rem; } }\n\n@media only screen and (max-width: 400px) {\n  body {\n    word-spacing: 1px;\n    font-size: 0.8rem; }\n  header {\n    height: auto; }\n  header h1 {\n    font-size: 1.2rem; }\n  .right_article div.promotion p input[type=text] {\n    width: 8rem; }\n  .right_article div.promotion p input[type=button] {\n    padding: 0 2rem 0 2rem; }\n  .subtotal_block .sub_amount, .coupon_block .coupon_amount {\n    font-size: 1.1rem; }\n  .subtotal_block .subtotal, .coupon_block .coupon, .estimate_block .estimate {\n    font-size: 0.8rem; }\n  .total_block .total h4 {\n    font-size: 0.8rem; }\n  .total_block .total_amount h4 {\n    font-size: 1.6rem; }\n  .common {\n    font-size: 0.8rem; }\n  .subtotal_block .subtotal, .estimate_block .estimate {\n    width: 55%; }\n  .img_block {\n    width: 8rem;\n    height: 8rem; }\n  .item_title {\n    font-size: 0.9rem; }\n  .quantity_mobile {\n    padding: 0; }\n  .price_mobile {\n    font-size: 1rem; }\n  .modal {\n    padding-top: 20px; }\n  .modal_rightpart img {\n    width: 50%;\n    max-height: 200px; } }\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-
-/**
- * When source maps are enabled, `style-loader` uses a link element with a data-uri to
- * embed the css on the page. This breaks all relative urls because now they are relative to a
- * bundle instead of the current page.
- *
- * One solution is to only use full urls, but that may be impossible.
- *
- * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
- *
- * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
- *
- */
-
-module.exports = function (css) {
-  // get current location
-  var location = typeof window !== "undefined" && window.location;
-
-  if (!location) {
-    throw new Error("fixUrls requires window.location");
-  }
-
-	// blank or null?
-	if (!css || typeof css !== "string") {
-	  return css;
-  }
-
-  var baseUrl = location.protocol + "//" + location.host;
-  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
-
-	// convert each url(...)
-	/*
-	This regular expression is just a way to recursively match brackets within
-	a string.
-
-	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
-	   (  = Start a capturing group
-	     (?:  = Start a non-capturing group
-	         [^)(]  = Match anything that isn't a parentheses
-	         |  = OR
-	         \(  = Match a start parentheses
-	             (?:  = Start another non-capturing groups
-	                 [^)(]+  = Match anything that isn't a parentheses
-	                 |  = OR
-	                 \(  = Match a start parentheses
-	                     [^)(]*  = Match anything that isn't a parentheses
-	                 \)  = Match a end parentheses
-	             )  = End Group
-              *\) = Match anything and then a close parens
-          )  = Close non-capturing group
-          *  = Match anything
-       )  = Close capturing group
-	 \)  = Match a close parens
-
-	 /gi  = Get all matches, not the first.  Be case insensitive.
-	 */
-	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
-		// strip quotes (if they exist)
-		var unquotedOrigUrl = origUrl
-			.trim()
-			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
-			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
-
-		// already a full url? no change
-		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(unquotedOrigUrl)) {
-		  return fullMatch;
-		}
-
-		// convert the url to a full url
-		var newUrl;
-
-		if (unquotedOrigUrl.indexOf("//") === 0) {
-		  	//TODO: should we add protocol?
-			newUrl = unquotedOrigUrl;
-		} else if (unquotedOrigUrl.indexOf("/") === 0) {
-			// path should be relative to the base url
-			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
-		} else {
-			// path should be relative to current directory
-			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
-		}
-
-		// send back the fixed url(...)
-		return "url(" + JSON.stringify(newUrl) + ")";
-	});
-
-	// send back the fixed css
-	return fixedCss;
-};
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(8);
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(2)(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {
-	module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./loader.scss", function() {
-		var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./loader.scss");
-
-		if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-
-		var locals = (function(a, b) {
-			var key, idx = 0;
-
-			for(key in a) {
-				if(!b || a[key] !== b[key]) return false;
-				idx++;
-			}
-
-			for(key in b) idx--;
-
-			return idx === 0;
-		}(content.locals, newContent.locals));
-
-		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
-
-		update(newContent);
-	});
-
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)(false);
-// imports
-
-
-// module
-exports.push([module.i, "/* Absolute Center Spinner */\n.loading {\n  position: fixed;\n  z-index: 999;\n  height: 2em;\n  width: 2em;\n  overflow: show;\n  margin: auto;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  display: none; }\n\n/* Transparent Overlay */\n.loading:before {\n  content: '';\n  display: block;\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.3); }\n\n/* :not(:required) hides these rules from IE9 and below */\n.loading:not(:required) {\n  /* hide \"loading...\" text */\n  font: 0/0 a;\n  color: transparent;\n  text-shadow: none;\n  background-color: transparent;\n  border: 0; }\n\n.loading:not(:required):after {\n  content: '';\n  display: block;\n  font-size: 10px;\n  width: 1em;\n  height: 1em;\n  margin-top: -0.5em;\n  -webkit-animation: spinner 1500ms infinite linear;\n  -moz-animation: spinner 1500ms infinite linear;\n  -ms-animation: spinner 1500ms infinite linear;\n  -o-animation: spinner 1500ms infinite linear;\n  animation: spinner 1500ms infinite linear;\n  border-radius: 0.5em;\n  -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;\n  box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0; }\n\n/* Animation */\n@-webkit-keyframes spinner {\n  0% {\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    -moz-transform: rotate(360deg);\n    -ms-transform: rotate(360deg);\n    -o-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@-moz-keyframes spinner {\n  0% {\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    -moz-transform: rotate(360deg);\n    -ms-transform: rotate(360deg);\n    -o-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@-o-keyframes spinner {\n  0% {\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    -moz-transform: rotate(360deg);\n    -ms-transform: rotate(360deg);\n    -o-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@keyframes spinner {\n  0% {\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    -moz-transform: rotate(360deg);\n    -ms-transform: rotate(360deg);\n    -o-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.controller = undefined;
-
-var _service = __webpack_require__(10);
-
-var $ = __webpack_require__(11);
-
-var controller = function () {
-
-	return {
-
-		/**** upload local json data to firebase database ******/
-		uploadData: function uploadData() {
-			var _this = this;
-
-			_service.ajaxCall.loadData('data.json').then(function (data) {
-				firebase.database().ref('cart_items').set(data);
-				_this.renderHTML(data.data);
-			}, function (error) {});
-		},
-
-		/********** load data from firebase, if data not found on firebase then upload data ***********/
-		loadData: function loadData() {
-			var _this2 = this;
-
-			$(".loading").show();
-			_service.ajaxCall.loadData('https://demoapp-8fd72.firebaseio.com/cart_items.json').then(function (data) {
-				console.log(data);
-				if (!data || data == 'undefined' || data == null) _this2.uploadData();else _this2.renderHTML(data.data);
-			}, function (error) {});
-		},
-
-		/********  update new data to firebase 
-  	@params : key as id and obj as data need to change 
-  ************/
-		updateData: function updateData(key, obj) {
-			var _this3 = this;
-
-			$(".loading").show();
-			_service.ajaxCall.loadData('https://demoapp-8fd72.firebaseio.com/cart_items.json').then(function (data) {
-				var ref = _this3;
-				var newObj = {
-					"data": data.data
-				};
-				var updatedArray = newObj.data.map(function (item) {
-					if (item.id == key) {
-						item.size = obj.size;
-						item.color = obj.color;
-						item.quantity = obj.quantity;
-					}
-					return obj;
-				});
-				firebase.database().ref('cart_items').set(newObj, function (error) {
-					if (error) {
-						// The write failed...
-					} else {
-						var modal = document.getElementById("myModal");
-						modal.style.display = "none";
-						ref.loadData();
-					}
-				});
-			}, function (error) {});
-		},
-
-		/********* create and render list items 
-  	@params : data as array of json
-  **********/
-		renderHTML: function renderHTML(data) {
-			var html = "";
-			var load = document.getElementById("loader");
-
-			for (var i = 0; i < data.length; i++) {
-				html += '<li>\n\t\t\t\t<div class="listitem_block">\n\t\t\t\t\t<div class="peritem_block" data-id="' + data[i].id + '">\n\t\t\t\t\t<div class="img_block"><img data-img="' + data[i].img_name + '" src="images/' + data[i].img_name + '" alt="' + data[i].title + '"></div>\n\t\t\t\t\t<div class="content_block">\n\t\t\t\t\t\t<h5 class="item_title" data-title="' + data[i].title + '">' + data[i].title + '</h5>\n\t\t\t\t\t\t<p data-style="' + data[i].style + '">Style #: ' + data[i].style + '</p>\n\t\t\t\t\t\t<p data-color="' + data[i].color + '">Color: ' + data[i].color + '</p>\n\t\t\t\t\t\t<p data-size="' + data[i].size + '" class="size_mobile">Size: ' + data[i].size + '</p>\n\t\t\t\t\t\t<p class="quantity_mobile" data-quantity="' + data[i].quantity + '">QTY: <input type="text" value="' + data[i].quantity + '"></p>\n\t\t\t\t\t\t<p class="price_mobile" data-price="' + data[i].price + '"><sup>$</sup><strong>' + data[i].price + '</strong></p>\n\t\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t\t\t<ul class="action_block">\n\t\t\t\t\t\t\t<li class="editBtn"><a href="javascript:void(0);">Edit</a> &nbsp;</li>\n\t\t\t\t\t\t\t<li>&nbsp;&nbsp;<a href="javascript:void(0);"><strong>X</strong> Remove &nbsp;</a></li>\n\t\t\t\t\t\t\t<li>&nbsp;&nbsp;<a href="javascript:void(0);">Save for Later</a></li>\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div data-size="' + data[i].size + '" class="size">' + data[i].size + '</div>\n\t\t\t\t\t<div data-size="' + data[i].quantity + '" class="quantity"><input type="text" value="' + data[i].quantity + '"></div>\n\t\t\t\t\t<div data-size="' + data[i].price + '" class="price"><sup>$</sup>' + data[i].price + '</div>\n\t\t\t\t</div>\n\t\t\t\t</li>';
-			}
-			document.getElementById('list').innerHTML = html;
-			$(".loading").hide();
-			this.bindListEvents();
-		},
-
-		/******** bind events on list items after cretae dynamic list *******/
-		bindListEvents: function bindListEvents() {
-			var listitem = document.querySelectorAll('.listitem_block .peritem_block');
-			var modal = document.getElementById("myModal");
-			var span = document.getElementsByClassName("close")[0];
-			var datasets = "";
-			var ref = this;
-			var obj = {};
-
-			var _iteratorNormalCompletion = true;
-			var _didIteratorError = false;
-			var _iteratorError = undefined;
-
-			try {
-				for (var _iterator = listitem[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-					var item = _step.value;
-
-					// item.addEventListener('click', function(event) {
-					item.onclick = function (event) {
-						datasets = $(this).children('.content_block');
-						obj.id = $(this)[0].dataset.id;
-						obj.title = datasets[0].children[0].dataset.title;
-						obj.style = datasets[0].children[1].dataset.style;
-						obj.color = datasets[0].children[2].dataset.color;
-						obj.size = datasets[0].children[3].dataset.size;
-						obj.quantity = datasets[0].children[4].dataset.quantity;
-						obj.price = datasets[0].children[5].dataset.price;
-						var img = $(this).children('.img_block');
-						obj.img = img[0].childNodes[0].dataset.img;
-
-						if (event.target.innerHTML == 'Edit') {
-							modal.style.display = "block";
-							ref.showPopup(obj);
-						}
-					};
-				}
-			} catch (err) {
-				_didIteratorError = true;
-				_iteratorError = err;
-			} finally {
-				try {
-					if (!_iteratorNormalCompletion && _iterator.return) {
-						_iterator.return();
-					}
-				} finally {
-					if (_didIteratorError) {
-						throw _iteratorError;
-					}
-				}
-			}
-
-			span.onclick = function () {
-				modal.style.display = "none";
-			};
-		},
-
-		/******** open popup 
-  	@params : obj as data items of selected list 
-  ********/
-		showPopup: function showPopup(obj) {
-			//console.log(obj)
-			var html = "";
-			var ref = this;
-			html += '<div class="modal_leftpart">\n\t\t\t\t\t\t<div class="mainBlock_leftPart">\n\t\t\t   \t\t\t<div class="line"></div>\n\t\t\t   \t\t\t<div class="content_leftpart"><h4>' + obj.title + '</h4><p><sup>$</sup>' + obj.price + '</p><div>' + obj.style + ' <br> <a href="javascript:void(0)" id="yellow"></a><a href="javascript:void(0)" id="green"></a></div></div><div>\n\t\t\t   \t\t\t\t<div class="styled-select">\n\t\t\t\t\t\t\t   <select id="size_select">\n\t\t\t\t\t\t\t     <option> SIZE : </option>\n\t\t\t\t\t\t\t     <option> S </option>\n\t\t\t\t\t\t\t     <option> M </option>\n\t\t\t\t\t\t\t     <option> L </option>\n\t\t\t\t\t\t\t   </select>\n\t\t\t\t\t\t\t  <span class="fa fa-sort-desc"></span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class="styled-select ">\n\t\t\t\t\t\t\t   <select id="qty_select">\n\t\t\t\t\t\t\t     <option> QTY : </option>\n\t\t\t\t\t\t\t     <option> 1 </option>\n\t\t\t\t\t\t\t     <option> 2 </option>\n\t\t\t\t\t\t\t     <option> 3 </option>\n\t\t\t\t\t\t\t   </select>\n\t\t\t\t\t\t\t  <span class="fa fa-sort-desc"></span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class="continue_btn editbtn" id="edit"><input type="button" value="EDIT"></div>\n\t\t\t\t\t\t<div class="detail_link"><a href="javascript:void(0)">See product details</a></div>\n\t\t\t   \t\t\t</div>\n\t\t   \t\t\t</div>\n\t\t   \t<div class="modal_rightpart"><img src="images/' + obj.img + '" alt="' + obj.title + '">\n\t\t   \t</div>';
-			document.getElementById("modal_body").innerHTML = html;
-
-			$("#size_select").val(obj.size);
-			$("#qty_select").val(obj.quantity);
-
-			this.bindevents_Popup(obj);
-		},
-
-		/******* bind events on popup ********/
-		bindevents_Popup: function bindevents_Popup(obj) {
-			var selected_color = obj.color;
-			var ref = this;
-			$("#yellow").on('click', function () {
-				selected_color = $(this)[0].id;
-				if ($(this).hasClass("active")) {
-					$(this).css("background-color", "#e4e473");
-					$(this).removeClass("active");
-				} else {
-					$(this).css("background-color", "yellow");
-					$(this).addClass("active");
-				}
-
-				if ($("#green").hasClass("active")) {
-					$(this).css("background-color", "#e4e473");
-					$(this).removeClass("active");
-					selected_color = "green";
-				}
-			});
-
-			$("#green").on('click', function () {
-				selected_color = $(this)[0].id;
-
-				if ($(this).hasClass("active")) {
-					$(this).css("background-color", "#8ac58a");
-					$(this).removeClass("active");
-				} else {
-					$(this).css("background-color", "green");
-					$(this).addClass("active");
-				}
-
-				if ($("#yellow").hasClass("active")) {
-					$(this).css("background-color", "#8ac58a");
-					$(this).removeClass("active");
-					selected_color = "yellow";
-				}
-			});
-
-			document.getElementById("edit").addEventListener("click", function () {
-				console.log($("#size_select").val());
-				console.log($("#qty_select").val());
-				console.log(selected_color);
-				var updateItems = {
-					"size": $("#size_select").val(),
-					"quantity": $("#qty_select").val(),
-					"color": selected_color
-				};
-				ref.updateData(obj.id, updateItems);
-			});
-		}
-
-	};
-}();
-
-exports.controller = controller;
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var $ = __webpack_require__(11);
-
-var ajaxCall = {
-  loadData: function loadData(url) {
-    return $.ajax({
-      url: url,
-      type: 'GET',
-      success: function success(response) {
-        return Promise.resolve(response);
-      }
-    });
-  }
-};
-
-exports.ajaxCall = ajaxCall;
-
-/***/ }),
-/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -11412,6 +10971,511 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(5);
+module.exports = __webpack_require__(0);
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(0);
+
+__webpack_require__(8);
+
+var _render = __webpack_require__(10);
+
+window.addEventListener("DOMContentLoaded", function () {
+	_render.controller.loadData();
+});
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "body {\n  margin: 0 auto;\n  width: 80%;\n  font-family: 'Lato light', sans-serif;\n  font-size: 1rem;\n  word-spacing: 2px; }\n\nheader {\n  text-align: left;\n  height: 100px;\n  margin-top: 10px; }\n\nsection.List_View ul.list_header {\n  list-style-type: none;\n  display: flex;\n  padding: 0;\n  font-weight: 300;\n  text-transform: uppercase;\n  color: #716d6d;\n  letter-spacing: 1px;\n  border-top: 1px solid #ccc;\n  border-bottom: 7px solid #ccc;\n  padding: 1rem 0 1rem 0; }\n\nsection.List_View ul.list_header li:first-child {\n  flex-basis: 70%; }\n\nsection.List_View ul.list_header li.other {\n  flex: 1;\n  text-align: center; }\n\nsection.List_View ul.list_header li:last-child {\n  flex: 1;\n  text-align: right; }\n\nsection.List_View ul.list_section {\n  list-style-type: none;\n  margin: 0;\n  padding: 0; }\n\nsection.List_View ul.list_section > li:not(:last-child) {\n  border-bottom: 1px solid #ccc;\n  padding-bottom: 2rem;\n  margin-bottom: 2rem; }\n\n.listitem_block {\n  display: flex; }\n\n.peritem_block {\n  flex-basis: 70%; }\n\n.img_block {\n  float: left;\n  width: 12rem;\n  height: 12rem; }\n\n.img_block img {\n  height: 100%;\n  width: 100%; }\n\n.content_block {\n  line-height: 0.2;\n  padding: 10px 0 0px 0px;\n  display: flex;\n  flex-direction: column; }\n\n.item_title {\n  word-spacing: 5px;\n  color: #5f5d5d;\n  font-size: 1.1rem; }\n\n.content_block p {\n  color: #797474;\n  font-weight: 300;\n  line-height: 0.5; }\n\n.action_block {\n  display: flex;\n  flex-direction: row;\n  list-style-type: none;\n  padding: 0;\n  margin-top: 3rem;\n  text-transform: uppercase;\n  font-weight: 300;\n  color: #797474;\n  font-size: 0.9rem; }\n\n.action_block li a {\n  text-decoration: none;\n  color: #797474; }\n\n.action_block li:not(:last-child) {\n  border-right: 1px solid #ccc; }\n\n.size, .quantity {\n  flex: 1;\n  text-align: center;\n  color: #5f5d5d; }\n\n.quantity input[type=text] {\n  width: 50px;\n  height: 30px;\n  color: #5f5d5d;\n  text-align: center; }\n\n.price {\n  flex: 1;\n  text-align: right;\n  font-size: 1.2rem; }\n\n.edit li:not(:last-child) {\n  border-right: 1px solid #ccc; }\n\n.horizontal_line {\n  border-bottom: 7px solid #ccc;\n  padding: 10px; }\n\n.article {\n  display: flex;\n  margin: 6rem 0 1rem 0;\n  flex-direction: row; }\n\n.left_article {\n  flex-basis: 30%; }\n\na.except {\n  font-weight: 100;\n  color: #807979;\n  text-decoration: none; }\n\n.left_article .leftContent a:not(.except) {\n  font-weight: 100;\n  text-decoration: underline;\n  color: #807979; }\n\n.right_article {\n  flex-basis: 70%;\n  border-bottom: 7px solid #ccc; }\n\n.right_article div.promotion {\n  display: flex;\n  border-bottom: 7px solid #ccc;\n  margin-bottom: 2rem;\n  padding-bottom: 1rem; }\n\n.right_article div.promotion .code {\n  flex-grow: 3;\n  text-transform: uppercase;\n  word-spacing: 2px;\n  letter-spacing: 0.5px;\n  font-weight: 300;\n  color: #5a5757; }\n\n.right_article div.promotion p input[type=text] {\n  width: 12rem;\n  height: 2.5rem;\n  background-color: transparent;\n  border: 1px solid #ccc; }\n\n.right_article div.promotion p input[type=button] {\n  height: 2.5rem;\n  padding: 0 2.3rem 0 2.3rem;\n  background: transparent;\n  color: #000;\n  letter-spacing: 2px;\n  text-transform: uppercase;\n  border: 1px solid #ccc; }\n\n.invoice_block {\n  display: flex;\n  flex-direction: column; }\n\n.subtotal_block, .coupon_block, .estimate_block {\n  padding: 1rem 0 1rem 0; }\n\n.subtotal_block .subtotal, .coupon_block .coupon, .estimate_block .estimate {\n  float: left;\n  width: 50%; }\n\n.subtotal_block .sub_amount, .coupon_block .coupon_amount, .estimate_block .estimate_amount {\n  text-align: right; }\n\n.common {\n  line-height: 1;\n  color: #a29e9e;\n  word-spacing: 2px;\n  font-size: 0.9rem; }\n\n.small {\n  display: none; }\n\n.large {\n  display: block; }\n\n.total_block {\n  padding: 1rem 0 1rem 0;\n  border-top: 1px solid #ccc;\n  margin: 1.5rem 0 0rem 0; }\n\n.total_block .total {\n  float: left;\n  width: 50%; }\n\n.total_block .total_amount {\n  text-align: right; }\n\nfooter {\n  margin-bottom: 1rem; }\n\nfooter .continue_block {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end; }\n\nfooter .continue_block div.continue_link a {\n  color: #4c4545;\n  font-weight: 300;\n  text-decoration: underline;\n  padding: 10px;\n  font-size: small;\n  letter-spacing: 1px;\n  vertical-align: -webkit-baseline-middle; }\n\nfooter .continue_block .continue_btn input[type=button] {\n  background-color: #1761af;\n  color: #fff;\n  /* padding: 1rem; */\n  width: 8rem;\n  height: 2.5rem;\n  font-size: 13px;\n  letter-spacing: 1px;\n  border: 1px solid #ccc; }\n\nfooter .secure_block {\n  display: flex;\n  flex-direction: row;\n  color: #ada9a9;\n  font-size: 0.9rem;\n  justify-content: flex-end; }\n\nfooter .secure_text {\n  padding: 10px 0 0 0; }\n\n.signin {\n  display: none;\n  padding: 1rem;\n  color: #a29e9e;\n  font-size: 0.9rem; }\n\n.signin a {\n  text-transform: uppercase;\n  text-decoration: underline;\n  color: #a29e9e; }\n\n#itemOnHeader {\n  display: none;\n  text-align: right;\n  font-weight: 300;\n  text-transform: uppercase;\n  color: #716d6d;\n  letter-spacing: 1px; }\n\n.quantity_mobile, .size_mobile, .price_mobile {\n  display: none; }\n\n.quantity_mobile {\n  padding: 0.5rem 0 0.5rem 0; }\n\n.quantity_mobile input[type=text] {\n  width: 40px;\n  text-align: center; }\n\n.price_mobile {\n  font-size: 1.2rem;\n  letter-spacing: 1px;\n  color: #3e3e3e !important; }\n\n/********* modal **********/\n.modal {\n  display: none;\n  position: fixed;\n  z-index: 1;\n  padding-top: 100px;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  background-color: black;\n  background-color: rgba(0, 0, 0, 0.4); }\n\n/* Modal Content */\n.modal-content {\n  background-color: #fefefe;\n  margin: auto;\n  padding: 25px;\n  border: 1px solid #888;\n  width: 80%; }\n\n.modal-body {\n  display: flex;\n  flex-direction: row; }\n\n.modal-body .modal_leftpart {\n  flex-basis: 50%;\n  text-align: center; }\n\n.modal-body .modal_leftpart .mainBlock_leftPart {\n  display: flex;\n  flex-direction: column;\n  padding-top: 0rem; }\n\n.line {\n  width: 50%;\n  margin-left: 25%;\n  margin-bottom: 2rem;\n  border-bottom: 6px inset #e4e1e1; }\n\n.content_leftpart h4 {\n  letter-spacing: 1px;\n  color: #6d6666;\n  font-weight: 100;\n  font-size: 1.2rem; }\n\n.content_leftpart p {\n  font-size: 4rem;\n  font-family: serif;\n  margin: 0; }\n\n.content_leftpart p sup {\n  font-size: 55%;\n  padding: 10px 10px 10px 10px;\n  font-weight: 100; }\n\n.content_leftpart div {\n  font-weight: 100;\n  display: inline-block;\n  line-height: 2; }\n\n.content_leftpart div a {\n  background-color: #e4e473;\n  width: 30px;\n  height: 22px;\n  float: left;\n  margin: 0 0.5rem 1rem 0.5rem; }\n\n.content_leftpart div #yellow:hover {\n  transform: scale(1.2);\n  border: 1px solid #ccc; }\n\n.content_leftpart div a:last-child {\n  background-color: #8ac58a;\n  width: 30px;\n  height: 22px;\n  display: block; }\n\n.content_leftpart div #green:hover {\n  transform: scale(1.2);\n  border: 1px solid #ccc; }\n\n.editbtn {\n  margin-top: 1rem; }\n\n.editbtn input[type=button] {\n  background-color: #1761af;\n  color: #fff;\n  width: 10rem;\n  height: 3.5rem;\n  font-size: 14px;\n  letter-spacing: 1px;\n  border: 1px solid #ccc;\n  font-weight: 300; }\n\n.detail_link {\n  margin-top: 1rem;\n  letter-spacing: 1px;\n  font-size: 0.9rem; }\n\n.detail_link a {\n  text-decoration: underline;\n  color: #000; }\n\n.modal_rightpart {\n  flex-basis: 50%;\n  text-align: center; }\n\n.modal_rightpart img {\n  width: 80%;\n  max-height: 400px; }\n\n/* The Close Button */\n.close {\n  color: #aaaaaa;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n  text-align: right; }\n\n.close:hover,\n.close:focus {\n  color: #000;\n  text-decoration: none;\n  cursor: pointer; }\n\n/******** custom select box ****/\n.styled-select {\n  border: 1px solid #ccc;\n  box-sizing: border-box;\n  border-radius: 3px;\n  overflow: hidden;\n  position: relative; }\n\n.styled-select, .styled-select select {\n  font-size: 0.9rem;\n  width: 90px;\n  display: inline-block;\n  font-weight: 300; }\n\nselect:focus {\n  outline: none; }\n\n.styled-select select {\n  height: 34px;\n  padding: 5px 0 5px 5px;\n  background: transparent;\n  border: none;\n  /*hide default down arrow in webkit */\n  -webkit-appearance: none; }\n\n@-moz-document url-prefix() {\n  .styled-select select {\n    width: 110%; } }\n\n.fa-sort-desc {\n  position: absolute;\n  top: 0;\n  right: 12px;\n  font-size: 24px;\n  color: #ccc; }\n\n@media only screen and (min-width: 650px) and (max-width: 1000px) {\n  .right_article div.promotion {\n    flex-wrap: wrap; }\n  .left_article {\n    flex-basis: 35%; }\n  .total_block .total {\n    width: 60%; }\n  .peritem_block {\n    flex-basis: 65%; }\n  .listitem_block {\n    font-size: 0.9rem; }\n  section.List_View ul.list_header li:first-child {\n    flex-basis: 65%; }\n  section.List_View ul.list_header {\n    font-size: 0.9rem; }\n  .action_block {\n    clear: both;\n    justify-content: space-evenly;\n    padding-top: 1.5rem; }\n  .modal_rightpart img {\n    width: 100%; } }\n\n@media only screen and (max-width: 650px) {\n  body {\n    width: 85%; }\n  .c {\n    display: none; }\n  header {\n    height: auto; }\n  header h1 {\n    font-size: 1.4rem; }\n  section article.left_article {\n    display: none; }\n  .large {\n    display: none; }\n  .small {\n    display: block; }\n  .article {\n    margin: 1.2rem 0 1.2rem 0; }\n  .right_article {\n    flex-basis: 100%; }\n  .right_article div.promotion {\n    display: block;\n    text-align: center;\n    border-bottom: 2px solid #ccc; }\n  .right_article div.promotion p input[type=text] {\n    float: left;\n    width: 10rem; }\n  .coupon_block {\n    order: 3; }\n  .invoice_block {\n    order: 2; }\n  .total_block {\n    order: 4; }\n  .subtotal_block .sub_amount, .coupon_block .coupon_amount {\n    font-size: 1.3rem; }\n  .subtotal_block .subtotal, .coupon_block .coupon, .estimate_block .estimate {\n    font-size: 0.9rem; }\n  .total_block .total h4 {\n    font-size: 1rem; }\n  .total_block .total_amount h4 {\n    font-size: 1.9rem; }\n  .right_article {\n    border: none; }\n  footer .continue_block {\n    display: flex;\n    flex-direction: column-reverse; }\n  footer .continue_block div.continue_link {\n    text-align: center;\n    padding: 1rem; }\n  footer .continue_block .continue_btn {\n    width: 100%; }\n  footer .continue_block .continue_btn input[type=button] {\n    background-color: #1761af;\n    color: #fff;\n    /* padding: 1rem; */\n    width: 100%;\n    height: 2.5rem;\n    font-size: 13px;\n    letter-spacing: 1px; }\n  footer .secure_block {\n    flex-direction: column-reverse;\n    text-align: center;\n    padding: 0 1.5rem 0 1.5rem; }\n  .signin {\n    display: block; }\n  .peritem_block {\n    flex-basis: 100%;\n    /*flex-direction: row;*/ }\n  .action_block {\n    clear: both;\n    justify-content: space-evenly;\n    padding-top: 1.5rem;\n    margin-top: 0; }\n  .size, .quantity, .price {\n    display: none; }\n  section.List_View ul.list_header li {\n    display: none; }\n  section.List_View ul.list_header {\n    border-top: none;\n    padding: 0 0 1rem 0; }\n  #itemOnHeader {\n    display: block; }\n  .items_small {\n    display: block; }\n  .img_block {\n    width: 11rem;\n    height: 11rem; }\n  .quantity_mobile, .size_mobile, .price_mobile {\n    display: block; }\n  .content_block p {\n    line-height: 0; }\n  .listitem_block {\n    font-size: 0.9rem; }\n  .modal-body {\n    flex-direction: column; }\n  .modal_leftpart {\n    order: 2; }\n  .modal {\n    padding-top: 50px; }\n  .modal_rightpart img {\n    width: 60%;\n    max-height: 300px; }\n  .content_leftpart h4 {\n    font-size: 1rem; }\n  .content_leftpart p {\n    font-size: 2.5rem; }\n  .modal-content {\n    padding: 10px; }\n  .modal-body .modal_leftpart .mainBlock_leftPart {\n    padding-top: 1rem; } }\n\n@media only screen and (max-width: 400px) {\n  body {\n    word-spacing: 1px;\n    font-size: 0.8rem; }\n  header {\n    height: auto; }\n  header h1 {\n    font-size: 1.2rem; }\n  .right_article div.promotion p input[type=text] {\n    width: 8rem; }\n  .right_article div.promotion p input[type=button] {\n    padding: 0 2rem 0 2rem; }\n  .subtotal_block .sub_amount, .coupon_block .coupon_amount {\n    font-size: 1.1rem; }\n  .subtotal_block .subtotal, .coupon_block .coupon, .estimate_block .estimate {\n    font-size: 0.8rem; }\n  .total_block .total h4 {\n    font-size: 0.8rem; }\n  .total_block .total_amount h4 {\n    font-size: 1.6rem; }\n  .common {\n    font-size: 0.8rem; }\n  .subtotal_block .subtotal, .estimate_block .estimate {\n    width: 55%; }\n  .img_block {\n    width: 8rem;\n    height: 8rem; }\n  .item_title {\n    font-size: 0.9rem; }\n  .quantity_mobile {\n    padding: 0; }\n  .price_mobile {\n    font-size: 1rem; }\n  .modal {\n    padding-top: 20px; }\n  .modal_rightpart img {\n    width: 50%;\n    max-height: 200px; } }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+
+/**
+ * When source maps are enabled, `style-loader` uses a link element with a data-uri to
+ * embed the css on the page. This breaks all relative urls because now they are relative to a
+ * bundle instead of the current page.
+ *
+ * One solution is to only use full urls, but that may be impossible.
+ *
+ * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
+ *
+ * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
+ *
+ */
+
+module.exports = function (css) {
+  // get current location
+  var location = typeof window !== "undefined" && window.location;
+
+  if (!location) {
+    throw new Error("fixUrls requires window.location");
+  }
+
+	// blank or null?
+	if (!css || typeof css !== "string") {
+	  return css;
+  }
+
+  var baseUrl = location.protocol + "//" + location.host;
+  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+
+	// convert each url(...)
+	/*
+	This regular expression is just a way to recursively match brackets within
+	a string.
+
+	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+	   (  = Start a capturing group
+	     (?:  = Start a non-capturing group
+	         [^)(]  = Match anything that isn't a parentheses
+	         |  = OR
+	         \(  = Match a start parentheses
+	             (?:  = Start another non-capturing groups
+	                 [^)(]+  = Match anything that isn't a parentheses
+	                 |  = OR
+	                 \(  = Match a start parentheses
+	                     [^)(]*  = Match anything that isn't a parentheses
+	                 \)  = Match a end parentheses
+	             )  = End Group
+              *\) = Match anything and then a close parens
+          )  = Close non-capturing group
+          *  = Match anything
+       )  = Close capturing group
+	 \)  = Match a close parens
+
+	 /gi  = Get all matches, not the first.  Be case insensitive.
+	 */
+	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
+		// strip quotes (if they exist)
+		var unquotedOrigUrl = origUrl
+			.trim()
+			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
+			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
+
+		// already a full url? no change
+		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(unquotedOrigUrl)) {
+		  return fullMatch;
+		}
+
+		// convert the url to a full url
+		var newUrl;
+
+		if (unquotedOrigUrl.indexOf("//") === 0) {
+		  	//TODO: should we add protocol?
+			newUrl = unquotedOrigUrl;
+		} else if (unquotedOrigUrl.indexOf("/") === 0) {
+			// path should be relative to the base url
+			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+		} else {
+			// path should be relative to current directory
+			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+		}
+
+		// send back the fixed url(...)
+		return "url(" + JSON.stringify(newUrl) + ")";
+	});
+
+	// send back the fixed css
+	return fixedCss;
+};
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(9);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(2)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {
+	module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./loader.scss", function() {
+		var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./loader.scss");
+
+		if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* Absolute Center Spinner */\n.loading {\n  position: fixed;\n  z-index: 999;\n  height: 2em;\n  width: 2em;\n  overflow: show;\n  margin: auto;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  display: none; }\n\n/* Transparent Overlay */\n.loading:before {\n  content: '';\n  display: block;\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.3); }\n\n/* :not(:required) hides these rules from IE9 and below */\n.loading:not(:required) {\n  /* hide \"loading...\" text */\n  font: 0/0 a;\n  color: transparent;\n  text-shadow: none;\n  background-color: transparent;\n  border: 0; }\n\n.loading:not(:required):after {\n  content: '';\n  display: block;\n  font-size: 10px;\n  width: 1em;\n  height: 1em;\n  margin-top: -0.5em;\n  -webkit-animation: spinner 1500ms infinite linear;\n  -moz-animation: spinner 1500ms infinite linear;\n  -ms-animation: spinner 1500ms infinite linear;\n  -o-animation: spinner 1500ms infinite linear;\n  animation: spinner 1500ms infinite linear;\n  border-radius: 0.5em;\n  -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;\n  box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0; }\n\n/* Animation */\n@-webkit-keyframes spinner {\n  0% {\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    -moz-transform: rotate(360deg);\n    -ms-transform: rotate(360deg);\n    -o-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@-moz-keyframes spinner {\n  0% {\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    -moz-transform: rotate(360deg);\n    -ms-transform: rotate(360deg);\n    -o-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@-o-keyframes spinner {\n  0% {\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    -moz-transform: rotate(360deg);\n    -ms-transform: rotate(360deg);\n    -o-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n\n@keyframes spinner {\n  0% {\n    -webkit-transform: rotate(0deg);\n    -moz-transform: rotate(0deg);\n    -ms-transform: rotate(0deg);\n    -o-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n    -moz-transform: rotate(360deg);\n    -ms-transform: rotate(360deg);\n    -o-transform: rotate(360deg);\n    transform: rotate(360deg); } }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.controller = undefined;
+
+var _service = __webpack_require__(11);
+
+var $ = __webpack_require__(3);
+
+var controller = function () {
+
+	return {
+
+		/**** upload local json data to firebase database ******/
+		uploadData: function uploadData() {
+			var _this = this;
+
+			_service.ajaxCall.loadData('data.json').then(function (data) {
+				firebase.database().ref('cart_items').set(data);
+				_this.renderHTML(data.data);
+			}, function (error) {});
+		},
+
+		/********** load data from firebase, if data not found on firebase then upload data ***********/
+		loadData: function loadData() {
+			var _this2 = this;
+
+			$(".loading").show();
+			_service.ajaxCall.loadData('https://demoapp-8fd72.firebaseio.com/cart_items.json').then(function (data) {
+				console.log(data);
+				if (!data || data == 'undefined' || data == null) _this2.uploadData();else _this2.renderHTML(data.data);
+			}, function (error) {});
+		},
+
+		/********  update new data to firebase 
+  	@params : key as id and obj as data need to change 
+  ************/
+		updateData: function updateData(key, obj) {
+			var _this3 = this;
+
+			$(".loading").show();
+			_service.ajaxCall.loadData('https://demoapp-8fd72.firebaseio.com/cart_items.json').then(function (data) {
+				var ref = _this3;
+				var newObj = {
+					"data": data.data
+				};
+				var updatedArray = newObj.data.map(function (item) {
+					if (item.id == key) {
+						item.size = obj.size;
+						item.color = obj.color;
+						item.quantity = obj.quantity;
+						if (obj.color == "yellow") {
+							item.images.map(function (res) {
+								if (res.yellow) {
+									item.img_name = res.yellow;
+								}
+							});
+						} else if (obj.color == "green") {
+							item.images.map(function (res) {
+								if (res.green) {
+									item.img_name = res.green;
+								}
+							});
+						} else {
+							item.images.map(function (res) {
+								if (res.default) {
+									item.img_name = res.default;
+								}
+							});
+						}
+					}
+					return item;
+				});
+				firebase.database().ref('cart_items').set(newObj, function (error) {
+					if (error) {} else {
+						var modal = document.getElementById("myModal");
+						modal.style.display = "none";
+						ref.loadData();
+					}
+				});
+			}, function (error) {
+				alert("error");
+			});
+		},
+
+		/********* create and render list items 
+  	@params : data as array of json
+  **********/
+		renderHTML: function renderHTML(data) {
+			var html = "";
+			var img_name = "";
+			var total = 0;
+			var load = document.getElementById("loader");
+			for (var i = 0; i < data.length; i++) {
+
+				total = total + parseInt(data[i].price) * data[i].quantity;
+
+				html += '<li>\n\t\t\t\t<div class="listitem_block">\n\t\t\t\t\t<div class="peritem_block" data-id="' + data[i].id + '" tabindex="-1">\n\t\t\t\t\t<div class="img_block" tabindex="-1"><img data-role="image" data-img="' + data[i].img_name + '" src="images/' + data[i].img_name + '" alt="' + data[i].title + '"></div>\n\t\t\t\t\t<div class="content_block" tabindex="-1">\n\t\t\t\t\t\t<h5 class="item_title" data-title="' + data[i].title + '">' + data[i].title + '</h5>\n\t\t\t\t\t\t<p data-style="' + data[i].style + '">Style #: ' + data[i].style + '</p>\n\t\t\t\t\t\t<p data-color="' + data[i].color + '">Color: ' + data[i].color + '</p>\n\t\t\t\t\t\t<p data-size="' + data[i].size + '" class="size_mobile">Size: ' + data[i].size + '</p>\n\t\t\t\t\t\t<p class="quantity_mobile" data-quantity="' + data[i].quantity + '">QTY: <input type="text" value="' + data[i].quantity + '"></p>\n\t\t\t\t\t\t<p class="price_mobile" data-price="' + data[i].price + '"><sup>$</sup><strong>' + data[i].price + '</strong></p>\n\t\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t\t\t<ul class="action_block" tabindex="-1">\n\t\t\t\t\t\t\t<li class="editBtn"><a href="javascript:void(0);" id="editList">Edit</a> &nbsp;</li>\n\t\t\t\t\t\t\t<li>&nbsp;&nbsp;<a href="javascript:void(0);" id="remove"><strong>X</strong> Remove &nbsp;</a></li>\n\t\t\t\t\t\t\t<li>&nbsp;&nbsp;<a href="javascript:void(0);">Save for Later</a></li>\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div data-size="' + data[i].size + '" class="size">' + data[i].size + '</div>\n\t\t\t\t\t<div data-quantity="' + data[i].quantity + '" class="quantity"><input type="text" value="' + data[i].quantity + '"></div>\n\t\t\t\t\t<div data-price="' + data[i].price + '" class="price"><sup>$</sup>' + data[i].price + '</div>\n\t\t\t\t</div>\n\t\t\t\t</li>';
+			}
+			document.getElementById('list').innerHTML = html;
+			$(".loading").hide();
+			this.bindListEvents(data);
+
+			$(".sub_amount").html("<sup>$</sup>" + parseInt(total) + ".00");
+			$(".total_amount").html("<h4><sup>$</sup>" + (parseInt(total) - 7) + ".00</h4>");
+		},
+
+		/******** bind events on list items after cretae dynamic list *******/
+		bindListEvents: function bindListEvents(data) {
+			var listitem = document.querySelectorAll('.listitem_block .peritem_block');
+			var modal = document.getElementById("myModal");
+			var span = document.getElementsByClassName("close")[0];
+			var datasets = "";
+			var ref = this;
+			var obj = {};
+
+			var _iteratorNormalCompletion = true;
+			var _didIteratorError = false;
+			var _iteratorError = undefined;
+
+			try {
+				for (var _iterator = listitem[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+					var item = _step.value;
+
+					// item.addEventListener('click', function(event) {
+					item.onclick = function (event) {
+						console.log(event);
+						datasets = $(this).children('.content_block');
+						obj.id = $(this)[0].dataset.id;
+						obj.title = datasets[0].children[0].dataset.title;
+						obj.style = datasets[0].children[1].dataset.style;
+						obj.color = datasets[0].children[2].dataset.color;
+						obj.size = datasets[0].children[3].dataset.size;
+						obj.quantity = datasets[0].children[4].dataset.quantity;
+						obj.price = datasets[0].children[5].dataset.price;
+						var img = $(this).children('.img_block');
+						obj.img = img[0].childNodes[0].dataset.img;
+
+						//obj.imgArr = arr;
+
+						if (event.target.id == 'editList') {
+							modal.style.display = "block";
+							ref.showPopup(data, obj);
+						}
+						if (event.target.id == 'remove') {
+							//modal.style.display = "block";
+							ref.removeItem(data, obj);
+						}
+					};
+				}
+			} catch (err) {
+				_didIteratorError = true;
+				_iteratorError = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion && _iterator.return) {
+						_iterator.return();
+					}
+				} finally {
+					if (_didIteratorError) {
+						throw _iteratorError;
+					}
+				}
+			}
+
+			span.onclick = function () {
+				modal.style.display = "none";
+			};
+		},
+
+		/******** open popup 
+  	@params : obj as data items of selected list 
+  ********/
+		showPopup: function showPopup(data, obj) {
+			var arr = [];
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].id == obj.id) {
+					for (var j = 0; j < data[i].images.length; j++) {
+						arr.push(data[i].images[j]);
+					}
+				}
+			}
+			obj.imgArr = arr;
+			console.log(obj);
+			var html = "";
+			var ref = this;
+			html += '<div class="modal_leftpart">\n\t\t\t\t\t\t<div class="mainBlock_leftPart">\n\t\t\t   \t\t\t<div class="line"></div>\n\t\t\t   \t\t\t<div class="content_leftpart"><h4>' + obj.title + '</h4><p><sup>$</sup>' + obj.price + '</p><div>' + obj.style + ' <br> <a href="javascript:void(0)" id="yellow"></a><a href="javascript:void(0)" id="green"></a></div></div><div>\n\t\t\t   \t\t\t\t<div class="styled-select">\n\t\t\t\t\t\t\t   <select id="size_select">\n\t\t\t\t\t\t\t     <option> SIZE : </option>\n\t\t\t\t\t\t\t     <option> S </option>\n\t\t\t\t\t\t\t     <option> M </option>\n\t\t\t\t\t\t\t     <option> L </option>\n\t\t\t\t\t\t\t   </select>\n\t\t\t\t\t\t\t  <span class="fa fa-sort-desc"></span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class="styled-select ">\n\t\t\t\t\t\t\t   <select id="qty_select">\n\t\t\t\t\t\t\t     <option> QTY : </option>\n\t\t\t\t\t\t\t     <option> 1 </option>\n\t\t\t\t\t\t\t     <option> 2 </option>\n\t\t\t\t\t\t\t     <option> 3 </option>\n\t\t\t\t\t\t\t   </select>\n\t\t\t\t\t\t\t  <span class="fa fa-sort-desc"></span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class="continue_btn editbtn" id="edit"><input type="button" value="EDIT"></div>\n\t\t\t\t\t\t<div class="detail_link"><a href="javascript:void(0)">See product details</a></div>\n\t\t\t   \t\t\t</div>\n\t\t   \t\t\t</div>\n\t\t   \t<div class="modal_rightpart"><img src="images/' + obj.img + '" alt="' + obj.title + '">\n\t\t   \t</div>';
+			document.getElementById("modal_body").innerHTML = html;
+
+			$("#size_select").val(obj.size);
+			$("#qty_select").val(obj.quantity);
+
+			this.bindevents_Popup(obj);
+		},
+
+		/******* bind events on popup ********/
+		bindevents_Popup: function bindevents_Popup(obj) {
+			var selected_color = obj.color;
+			var ref = this;
+
+			$("#yellow").hover(function () {
+				//selected_color = $(this)[0].id;
+				for (var i = 0; i < obj.imgArr.length; i++) {
+					if (obj.imgArr[i].yellow) {
+						var yellow = obj.imgArr[i].yellow;
+					}
+				}
+				var img = "images/" + yellow;
+				$(".modal_rightpart").find("img").attr("src", img);
+			});
+
+			$("#green").hover(function () {
+				//selected_color = $(this)[0].id;
+				for (var i = 0; i < obj.imgArr.length; i++) {
+					if (obj.imgArr[i].green) {
+						var green = obj.imgArr[i].green;
+					}
+				}
+				var img = "images/" + green;
+				$(".modal_rightpart").find("img").attr("src", img);
+			});
+
+			$("#yellow").click(function () {
+				selected_color = $(this)[0].id;
+				$(this).css("background-color", "#ecec0d");
+				$("#green").css("background-color", "#8ac58a");
+			});
+
+			$("#green").click(function () {
+				selected_color = $(this)[0].id;
+				$(this).css("background-color", "#0eef0e");
+				$("#yellow").css("background-color", "#e4e473");
+			});
+
+			document.getElementById("edit").addEventListener("click", function () {
+				console.log($("#size_select").val());
+				console.log($("#qty_select").val());
+				console.log(selected_color);
+				var updateItems = {
+					"size": $("#size_select").val(),
+					"quantity": $("#qty_select").val(),
+					"color": selected_color
+				};
+				ref.updateData(obj.id, updateItems);
+			});
+		},
+
+		removeItem: function removeItem(data, obj) {
+			var confirm = window.confirm("Do you really want to delete this item");
+			if (!confirm) {
+				return false;
+			}
+			var ref = this;
+			var newObj = {
+				"data": data
+			};
+			for (var i = 0; i < newObj.data.length; i++) {
+				if (obj.id == newObj.data[i].id) {
+					newObj.data.splice(i, 1);
+				}
+			}
+			firebase.database().ref('cart_items').set(newObj, function (error) {
+				if (error) {} else {
+					alert("Removed Succesfully");
+					ref.loadData();
+				}
+			});
+		}
+
+	};
+}();
+
+exports.controller = controller;
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var $ = __webpack_require__(3);
+
+var ajaxCall = {
+  loadData: function loadData(url) {
+    return $.ajax({
+      url: url,
+      type: 'GET',
+      success: function success(response) {
+        return Promise.resolve(response);
+      }
+    });
+  }
+};
+
+exports.ajaxCall = ajaxCall;
 
 /***/ })
 /******/ ]);

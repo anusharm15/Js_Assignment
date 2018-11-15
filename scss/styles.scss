@@ -319,8 +319,8 @@ footer .secure_text{
     float: left;
     margin: 0 0.5rem 1rem 0.5rem;
 }
-.content_leftpart div a:hover{
-	width: 32px;
+.content_leftpart div #yellow:hover{
+	transform: scale(1.2);
 	border: 1px solid #ccc;
 }
 .content_leftpart div a:last-child{
@@ -329,8 +329,8 @@ footer .secure_text{
     height: 22px;
     display: block;
 }
-.content_leftpart div a:last-child:hover{
-	width: 32px;
+.content_leftpart div #green:hover{
+	transform: scale(1.2);
 	border: 1px solid #ccc;
 }
 .editbtn{

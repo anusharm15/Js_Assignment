@@ -44,12 +44,32 @@ var controller = (function() {
 						item.size = obj.size;
 						item.color = obj.color;
 						item.quantity = obj.quantity;
+						if(obj.color == "yellow"){
+							item.images.map(res => {
+								if(res.yellow){
+									item.img_name = res.yellow;
+								}
+							})
+						}else if(obj.color == "green"){
+							item.images.map(res => {
+								if(res.green){
+									item.img_name = res.green;
+								}
+							})
+						}else{
+							item.images.map(res => {
+								if(res.default){
+									item.img_name = res.default;
+								}
+							})
+						}
+						
 					}
-					return obj;
+					return item;
 				});
 				firebase.database().ref('cart_items').set(newObj, function(error) {
 				    if (error) {
-				      // The write failed...
+				    
 				    }else {
 				    	var modal = document.getElementById("myModal");
 		    			modal.style.display = "none";
@@ -57,7 +77,7 @@ var controller = (function() {
 				    }
 				 });
 			},(error)=>{
-
+				alert("error")
 			});
 		},
 
@@ -66,14 +86,18 @@ var controller = (function() {
 		**********/
 		renderHTML : function(data){
 			var html = "";
+			var img_name = "";
+			var total = 0;
 			var load = document.getElementById("loader");
-
 			for(var i=0; i<data.length; i++){
+				
+				total = total+ (parseInt(data[i].price) * data[i].quantity);
+
 				html += `<li>
 				<div class="listitem_block">
-					<div class="peritem_block" data-id="${data[i].id}">
-					<div class="img_block"><img data-img="${data[i].img_name}" src="images/${data[i].img_name}" alt="${data[i].title}"></div>
-					<div class="content_block">
+					<div class="peritem_block" data-id="${data[i].id}" tabindex="-1">
+					<div class="img_block" tabindex="-1"><img data-role="image" data-img="${data[i].img_name}" src="images/${data[i].img_name}" alt="${data[i].title}"></div>
+					<div class="content_block" tabindex="-1">
 						<h5 class="item_title" data-title="${data[i].title}">${data[i].title}</h5>
 						<p data-style="${data[i].style}">Style #: ${data[i].style}</p>
 						<p data-color="${data[i].color}">Color: ${data[i].color}</p>
@@ -82,26 +106,29 @@ var controller = (function() {
 						<p class="price_mobile" data-price="${data[i].price}"><sup>$</sup><strong>${data[i].price}</strong></p>
 						
 					</div>
-						<ul class="action_block">
-							<li class="editBtn"><a href="javascript:void(0);">Edit</a> &nbsp;</li>
-							<li>&nbsp;&nbsp;<a href="javascript:void(0);"><strong>X</strong> Remove &nbsp;</a></li>
+						<ul class="action_block" tabindex="-1">
+							<li class="editBtn"><a href="javascript:void(0);" id="editList">Edit</a> &nbsp;</li>
+							<li>&nbsp;&nbsp;<a href="javascript:void(0);" id="remove"><strong>X</strong> Remove &nbsp;</a></li>
 							<li>&nbsp;&nbsp;<a href="javascript:void(0);">Save for Later</a></li>
 						</ul>
 					</div>
 					<div data-size="${data[i].size}" class="size">${data[i].size}</div>
-					<div data-size="${data[i].quantity}" class="quantity"><input type="text" value="${data[i].quantity}"></div>
-					<div data-size="${data[i].price}" class="price"><sup>$</sup>${data[i].price}</div>
+					<div data-quantity="${data[i].quantity}" class="quantity"><input type="text" value="${data[i].quantity}"></div>
+					<div data-price="${data[i].price}" class="price"><sup>$</sup>${data[i].price}</div>
 				</div>
 				</li>`
 			}
 			document.getElementById('list').innerHTML = html;
 			$(".loading").hide();
-			this.bindListEvents();
+			this.bindListEvents(data);
+
+			$(".sub_amount").html("<sup>$</sup>"+parseInt(total)+".00");
+			$(".total_amount").html("<h4><sup>$</sup>"+(parseInt(total)-7)+".00</h4>");
 
 		},
 
 		/******** bind events on list items after cretae dynamic list *******/
-		bindListEvents: function(){
+		bindListEvents: function(data){
 			var listitem = document.querySelectorAll('.listitem_block .peritem_block');
 			var modal = document.getElementById("myModal");
 			var span = document.getElementsByClassName("close")[0];
@@ -112,6 +139,7 @@ var controller = (function() {
 			for (var item of listitem) {
 				// item.addEventListener('click', function(event) {
 				item.onclick = function(event){
+					console.log(event)
 					datasets = $(this).children('.content_block');
 					obj.id = $(this)[0].dataset.id;
 					obj.title = datasets[0].children[0].dataset.title;
@@ -123,9 +151,15 @@ var controller = (function() {
 					var img = $(this).children('.img_block');
 					obj.img = img[0].childNodes[0].dataset.img;
 
-					if(event.target.innerHTML == 'Edit'){
+					//obj.imgArr = arr;
+
+					if(event.target.id == 'editList'){
 						modal.style.display = "block";
-						ref.showPopup(obj);
+						ref.showPopup(data, obj);
+					}
+					if(event.target.id == 'remove'){
+						//modal.style.display = "block";
+						ref.removeItem(data, obj);
 					}
 				};	
 			}
@@ -139,8 +173,17 @@ var controller = (function() {
 		/******** open popup 
 			@params : obj as data items of selected list 
 		********/
-		showPopup: function(obj){
-			//console.log(obj)
+		showPopup: function(data, obj){
+			var arr = [];
+			for(let i=0; i<data.length; i++){
+				if(data[i].id == obj.id){
+					for(var j=0; j<data[i].images.length; j++){
+						arr.push(data[i].images[j])
+					}
+				}
+			}
+			obj.imgArr = arr;
+			console.log(obj)
 			var html = "";
 			var ref = this;
 			html +=`<div class="modal_leftpart">
@@ -185,41 +228,41 @@ var controller = (function() {
 		bindevents_Popup: function(obj){
 			var selected_color = obj.color;
 			var ref = this;
-			$("#yellow").on('click',function(){
-				selected_color = $(this)[0].id;
-				if($(this).hasClass("active")){
-					$(this).css("background-color", "#e4e473");
-					$(this).removeClass("active");
-				}else{
-					$(this).css("background-color", "yellow");
-					$(this).addClass("active");
-				}
 
-				if($("#green").hasClass("active")){
-					$(this).css("background-color", "#e4e473");
-					$(this).removeClass("active");
-					selected_color = "green";
+			$("#yellow").hover(function(){
+				//selected_color = $(this)[0].id;
+				for(var i=0; i<obj.imgArr.length; i++){
+					if(obj.imgArr[i].yellow){
+						var yellow = obj.imgArr[i].yellow;
+					}
 				}
-				
+				var img = "images/"+yellow;
+				$(".modal_rightpart").find("img").attr("src", img);
 			})
 
-			$("#green").on('click',function(){
-				selected_color = $(this)[0].id;
-				
-				if($(this).hasClass("active")){
-					$(this).css("background-color", "#8ac58a");
-					$(this).removeClass("active");
-				}else{
-					$(this).css("background-color", "green");
-					$(this).addClass("active");
+			$("#green").hover(function(){
+				//selected_color = $(this)[0].id;
+				for(var i=0; i<obj.imgArr.length; i++){
+					if(obj.imgArr[i].green){
+						var green = obj.imgArr[i].green;
+					}
 				}
-
-				if($("#yellow").hasClass("active")){
-					$(this).css("background-color", "#8ac58a");
-					$(this).removeClass("active");
-					selected_color = "yellow";
-				}
+				var img = "images/"+green;
+				$(".modal_rightpart").find("img").attr("src", img)
 			})
+
+			$("#yellow").click(function(){
+				selected_color = $(this)[0].id;
+				$(this).css("background-color","#ecec0d")
+				$("#green").css("background-color","#8ac58a")
+			})
+
+			$("#green").click(function(){
+				selected_color = $(this)[0].id;
+				$(this).css("background-color","#0eef0e")
+				$("#yellow").css("background-color","#e4e473")
+			})
+
 
 			document.getElementById("edit").addEventListener("click",function(){
 				console.log($("#size_select").val());
@@ -232,7 +275,31 @@ var controller = (function() {
 				}
 				ref.updateData(obj.id, updateItems);
 			})
-		}
+		},
+
+		removeItem: function(data, obj){
+			var confirm = window.confirm("Do you really want to delete this item");
+			if(!confirm){
+				return false;
+			}
+			var ref = this;
+			var newObj = {
+				"data": data					
+			};
+			for(var i=0; i<newObj.data.length; i++){
+				if(obj.id == newObj.data[i].id){
+					newObj.data.splice(i, 1);
+				}
+			}
+			firebase.database().ref('cart_items').set(newObj, function(error) {
+			    if (error) {
+			    
+			    }else {
+			    	alert("Removed Succesfully");
+			    	ref.loadData();
+			    }
+			 });
+		},
 
 	}
 
