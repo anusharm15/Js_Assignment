@@ -8,6 +8,9 @@ var ajaxCall = {
           success(response) {
             return Promise.resolve(response)
           },
+          error(error) {
+            return Promise.reject(error)
+          }
       	});
 	} 
 };
