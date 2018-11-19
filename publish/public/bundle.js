@@ -57,552 +57,14 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "./dist/";
+/******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(6);
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(2)(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {
-	module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./styles.scss", function() {
-		var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./styles.scss");
-
-		if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-
-		var locals = (function(a, b) {
-			var key, idx = 0;
-
-			for(key in a) {
-				if(!b || a[key] !== b[key]) return false;
-				idx++;
-			}
-
-			for(key in b) idx--;
-
-			return idx === 0;
-		}(content.locals, newContent.locals));
-
-		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
-
-		update(newContent);
-	});
-
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-
-var stylesInDom = {};
-
-var	memoize = function (fn) {
-	var memo;
-
-	return function () {
-		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-		return memo;
-	};
-};
-
-var isOldIE = memoize(function () {
-	// Test for IE <= 9 as proposed by Browserhacks
-	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
-	// Tests for existence of standard globals is to allow style-loader
-	// to operate correctly into non-standard environments
-	// @see https://github.com/webpack-contrib/style-loader/issues/177
-	return window && document && document.all && !window.atob;
-});
-
-var getTarget = function (target, parent) {
-  if (parent){
-    return parent.querySelector(target);
-  }
-  return document.querySelector(target);
-};
-
-var getElement = (function (fn) {
-	var memo = {};
-
-	return function(target, parent) {
-                // If passing function in options, then use it for resolve "head" element.
-                // Useful for Shadow Root style i.e
-                // {
-                //   insertInto: function () { return document.querySelector("#foo").shadowRoot }
-                // }
-                if (typeof target === 'function') {
-                        return target();
-                }
-                if (typeof memo[target] === "undefined") {
-			var styleTarget = getTarget.call(this, target, parent);
-			// Special case to return head of iframe instead of iframe itself
-			if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
-				try {
-					// This will throw an exception if access to iframe is blocked
-					// due to cross-origin restrictions
-					styleTarget = styleTarget.contentDocument.head;
-				} catch(e) {
-					styleTarget = null;
-				}
-			}
-			memo[target] = styleTarget;
-		}
-		return memo[target]
-	};
-})();
-
-var singleton = null;
-var	singletonCounter = 0;
-var	stylesInsertedAtTop = [];
-
-var	fixUrls = __webpack_require__(7);
-
-module.exports = function(list, options) {
-	if (typeof DEBUG !== "undefined" && DEBUG) {
-		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-	}
-
-	options = options || {};
-
-	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
-
-	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-	// tags it will allow on a page
-	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
-
-	// By default, add <style> tags to the <head> element
-        if (!options.insertInto) options.insertInto = "head";
-
-	// By default, add <style> tags to the bottom of the target
-	if (!options.insertAt) options.insertAt = "bottom";
-
-	var styles = listToStyles(list, options);
-
-	addStylesToDom(styles, options);
-
-	return function update (newList) {
-		var mayRemove = [];
-
-		for (var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-
-			domStyle.refs--;
-			mayRemove.push(domStyle);
-		}
-
-		if(newList) {
-			var newStyles = listToStyles(newList, options);
-			addStylesToDom(newStyles, options);
-		}
-
-		for (var i = 0; i < mayRemove.length; i++) {
-			var domStyle = mayRemove[i];
-
-			if(domStyle.refs === 0) {
-				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
-
-				delete stylesInDom[domStyle.id];
-			}
-		}
-	};
-};
-
-function addStylesToDom (styles, options) {
-	for (var i = 0; i < styles.length; i++) {
-		var item = styles[i];
-		var domStyle = stylesInDom[item.id];
-
-		if(domStyle) {
-			domStyle.refs++;
-
-			for(var j = 0; j < domStyle.parts.length; j++) {
-				domStyle.parts[j](item.parts[j]);
-			}
-
-			for(; j < item.parts.length; j++) {
-				domStyle.parts.push(addStyle(item.parts[j], options));
-			}
-		} else {
-			var parts = [];
-
-			for(var j = 0; j < item.parts.length; j++) {
-				parts.push(addStyle(item.parts[j], options));
-			}
-
-			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-		}
-	}
-}
-
-function listToStyles (list, options) {
-	var styles = [];
-	var newStyles = {};
-
-	for (var i = 0; i < list.length; i++) {
-		var item = list[i];
-		var id = options.base ? item[0] + options.base : item[0];
-		var css = item[1];
-		var media = item[2];
-		var sourceMap = item[3];
-		var part = {css: css, media: media, sourceMap: sourceMap};
-
-		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
-		else newStyles[id].parts.push(part);
-	}
-
-	return styles;
-}
-
-function insertStyleElement (options, style) {
-	var target = getElement(options.insertInto)
-
-	if (!target) {
-		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
-	}
-
-	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
-
-	if (options.insertAt === "top") {
-		if (!lastStyleElementInsertedAtTop) {
-			target.insertBefore(style, target.firstChild);
-		} else if (lastStyleElementInsertedAtTop.nextSibling) {
-			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
-		} else {
-			target.appendChild(style);
-		}
-		stylesInsertedAtTop.push(style);
-	} else if (options.insertAt === "bottom") {
-		target.appendChild(style);
-	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
-		var nextSibling = getElement(options.insertAt.before, target);
-		target.insertBefore(style, nextSibling);
-	} else {
-		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
-	}
-}
-
-function removeStyleElement (style) {
-	if (style.parentNode === null) return false;
-	style.parentNode.removeChild(style);
-
-	var idx = stylesInsertedAtTop.indexOf(style);
-	if(idx >= 0) {
-		stylesInsertedAtTop.splice(idx, 1);
-	}
-}
-
-function createStyleElement (options) {
-	var style = document.createElement("style");
-
-	if(options.attrs.type === undefined) {
-		options.attrs.type = "text/css";
-	}
-
-	if(options.attrs.nonce === undefined) {
-		var nonce = getNonce();
-		if (nonce) {
-			options.attrs.nonce = nonce;
-		}
-	}
-
-	addAttrs(style, options.attrs);
-	insertStyleElement(options, style);
-
-	return style;
-}
-
-function createLinkElement (options) {
-	var link = document.createElement("link");
-
-	if(options.attrs.type === undefined) {
-		options.attrs.type = "text/css";
-	}
-	options.attrs.rel = "stylesheet";
-
-	addAttrs(link, options.attrs);
-	insertStyleElement(options, link);
-
-	return link;
-}
-
-function addAttrs (el, attrs) {
-	Object.keys(attrs).forEach(function (key) {
-		el.setAttribute(key, attrs[key]);
-	});
-}
-
-function getNonce() {
-	if (false) {
-		return null;
-	}
-
-	return __webpack_require__.nc;
-}
-
-function addStyle (obj, options) {
-	var style, update, remove, result;
-
-	// If a transform function was defined, run it on the css
-	if (options.transform && obj.css) {
-	    result = typeof options.transform === 'function'
-		 ? options.transform(obj.css) 
-		 : options.transform.default(obj.css);
-
-	    if (result) {
-	    	// If transform returns a value, use that instead of the original css.
-	    	// This allows running runtime transformations on the css.
-	    	obj.css = result;
-	    } else {
-	    	// If the transform function returns a falsy value, don't add this css.
-	    	// This allows conditional loading of css
-	    	return function() {
-	    		// noop
-	    	};
-	    }
-	}
-
-	if (options.singleton) {
-		var styleIndex = singletonCounter++;
-
-		style = singleton || (singleton = createStyleElement(options));
-
-		update = applyToSingletonTag.bind(null, style, styleIndex, false);
-		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
-
-	} else if (
-		obj.sourceMap &&
-		typeof URL === "function" &&
-		typeof URL.createObjectURL === "function" &&
-		typeof URL.revokeObjectURL === "function" &&
-		typeof Blob === "function" &&
-		typeof btoa === "function"
-	) {
-		style = createLinkElement(options);
-		update = updateLink.bind(null, style, options);
-		remove = function () {
-			removeStyleElement(style);
-
-			if(style.href) URL.revokeObjectURL(style.href);
-		};
-	} else {
-		style = createStyleElement(options);
-		update = applyToTag.bind(null, style);
-		remove = function () {
-			removeStyleElement(style);
-		};
-	}
-
-	update(obj);
-
-	return function updateStyle (newObj) {
-		if (newObj) {
-			if (
-				newObj.css === obj.css &&
-				newObj.media === obj.media &&
-				newObj.sourceMap === obj.sourceMap
-			) {
-				return;
-			}
-
-			update(obj = newObj);
-		} else {
-			remove();
-		}
-	};
-}
-
-var replaceText = (function () {
-	var textStore = [];
-
-	return function (index, replacement) {
-		textStore[index] = replacement;
-
-		return textStore.filter(Boolean).join('\n');
-	};
-})();
-
-function applyToSingletonTag (style, index, remove, obj) {
-	var css = remove ? "" : obj.css;
-
-	if (style.styleSheet) {
-		style.styleSheet.cssText = replaceText(index, css);
-	} else {
-		var cssNode = document.createTextNode(css);
-		var childNodes = style.childNodes;
-
-		if (childNodes[index]) style.removeChild(childNodes[index]);
-
-		if (childNodes.length) {
-			style.insertBefore(cssNode, childNodes[index]);
-		} else {
-			style.appendChild(cssNode);
-		}
-	}
-}
-
-function applyToTag (style, obj) {
-	var css = obj.css;
-	var media = obj.media;
-
-	if(media) {
-		style.setAttribute("media", media)
-	}
-
-	if(style.styleSheet) {
-		style.styleSheet.cssText = css;
-	} else {
-		while(style.firstChild) {
-			style.removeChild(style.firstChild);
-		}
-
-		style.appendChild(document.createTextNode(css));
-	}
-}
-
-function updateLink (link, options, obj) {
-	var css = obj.css;
-	var sourceMap = obj.sourceMap;
-
-	/*
-		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
-		and there is no publicPath defined then lets turn convertToAbsoluteUrls
-		on by default.  Otherwise default to the convertToAbsoluteUrls option
-		directly
-	*/
-	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
-
-	if (options.convertToAbsoluteUrls || autoFixUrls) {
-		css = fixUrls(css);
-	}
-
-	if (sourceMap) {
-		// http://stackoverflow.com/a/26603875
-		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-	}
-
-	var blob = new Blob([css], { type: "text/css" });
-
-	var oldSrc = link.href;
-
-	link.href = URL.createObjectURL(blob);
-
-	if(oldSrc) URL.revokeObjectURL(oldSrc);
-}
-
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10973,46 +10435,778 @@ return jQuery;
 
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(5);
-module.exports = __webpack_require__(0);
-
-
-/***/ }),
-/* 5 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(0);
-
-__webpack_require__(8);
-
-var _render = __webpack_require__(10);
-
-window.addEventListener("DOMContentLoaded", function () {
-	_render.controller.loadData();
+Object.defineProperty(exports, "__esModule", {
+	value: true
 });
+exports.controller = undefined;
+
+var _view = __webpack_require__(4);
+
+var _service = __webpack_require__(13);
+
+var $ = __webpack_require__(0);
+
+var controller = function () {
+
+	return {
+
+		/**** upload local json data to firebase database ******/
+		uploadData: function uploadData() {
+			_service.ajaxCall.loadData('data.json').then(function (data) {
+				firebase.database().ref('cart_items').set(data);
+				_view.view.renderHTML(data.data);
+			}, function (error) {});
+		},
+
+		/********** load data from firebase, if data not found on firebase then upload data ***********/
+		loadData: function loadData() {
+			var _this = this;
+
+			$(".loading").show();
+			_service.ajaxCall.loadData('https://demoapp-8fd72.firebaseio.com/cart_items.json').then(function (data) {
+				//console.log(data);
+				if (!data || data == 'undefined' || data == null) _this.uploadData();else _view.view.renderHTML(data.data);
+			}, function (error) {});
+		},
+
+		/********  update new data to firebase 
+  	@params : key as id and obj as data need to change 
+  ************/
+		updateData: function updateData(key, obj) {
+			var _this2 = this;
+
+			$(".loading").show();
+			_service.ajaxCall.loadData('https://demoapp-8fd72.firebaseio.com/cart_items.json').then(function (data) {
+				var ref = _this2;
+				var newObj = {
+					"data": data.data
+				};
+				var updatedArray = newObj.data.map(function (item) {
+					if (item.id == key) {
+						item.size = obj.size;
+						item.color = obj.color;
+						item.quantity = obj.quantity;
+						if (obj.color == "yellow") {
+							item.images.map(function (res) {
+								if (res.yellow) {
+									item.img_name = res.yellow;
+								}
+							});
+						} else if (obj.color == "green") {
+							item.images.map(function (res) {
+								if (res.green) {
+									item.img_name = res.green;
+								}
+							});
+						} else {
+							item.images.map(function (res) {
+								if (res.default) {
+									item.img_name = res.default;
+								}
+							});
+						}
+					}
+					return item;
+				});
+				firebase.database().ref('cart_items').set(newObj, function (error) {
+					if (error) {} else {
+						var modal = document.getElementById("myModal");
+						modal.style.display = "none";
+						ref.loadData();
+					}
+				});
+			}, function (error) {
+				alert("error");
+			});
+		},
+
+		removeItem: function removeItem(data, obj) {
+			var confirm = window.confirm("Do you really want to delete this item");
+			if (!confirm) {
+				return false;
+			}
+			var ref = this;
+			var newObj = {
+				"data": data
+			};
+			for (var i = 0; i < newObj.data.length; i++) {
+				if (obj.id == newObj.data[i].id) {
+					newObj.data.splice(i, 1);
+				}
+			}
+			firebase.database().ref('cart_items').set(newObj, function (error) {
+				if (error) {} else {
+					alert("Removed Succesfully");
+					ref.loadData();
+				}
+			});
+		}
+	};
+}();
+
+exports.controller = controller;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+
+var stylesInDom = {};
+
+var	memoize = function (fn) {
+	var memo;
+
+	return function () {
+		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+		return memo;
+	};
+};
+
+var isOldIE = memoize(function () {
+	// Test for IE <= 9 as proposed by Browserhacks
+	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+	// Tests for existence of standard globals is to allow style-loader
+	// to operate correctly into non-standard environments
+	// @see https://github.com/webpack-contrib/style-loader/issues/177
+	return window && document && document.all && !window.atob;
+});
+
+var getTarget = function (target, parent) {
+  if (parent){
+    return parent.querySelector(target);
+  }
+  return document.querySelector(target);
+};
+
+var getElement = (function (fn) {
+	var memo = {};
+
+	return function(target, parent) {
+                // If passing function in options, then use it for resolve "head" element.
+                // Useful for Shadow Root style i.e
+                // {
+                //   insertInto: function () { return document.querySelector("#foo").shadowRoot }
+                // }
+                if (typeof target === 'function') {
+                        return target();
+                }
+                if (typeof memo[target] === "undefined") {
+			var styleTarget = getTarget.call(this, target, parent);
+			// Special case to return head of iframe instead of iframe itself
+			if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+				try {
+					// This will throw an exception if access to iframe is blocked
+					// due to cross-origin restrictions
+					styleTarget = styleTarget.contentDocument.head;
+				} catch(e) {
+					styleTarget = null;
+				}
+			}
+			memo[target] = styleTarget;
+		}
+		return memo[target]
+	};
+})();
+
+var singleton = null;
+var	singletonCounter = 0;
+var	stylesInsertedAtTop = [];
+
+var	fixUrls = __webpack_require__(9);
+
+module.exports = function(list, options) {
+	if (typeof DEBUG !== "undefined" && DEBUG) {
+		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+
+	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
+
+	// By default, add <style> tags to the <head> element
+        if (!options.insertInto) options.insertInto = "head";
+
+	// By default, add <style> tags to the bottom of the target
+	if (!options.insertAt) options.insertAt = "bottom";
+
+	var styles = listToStyles(list, options);
+
+	addStylesToDom(styles, options);
+
+	return function update (newList) {
+		var mayRemove = [];
+
+		for (var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+
+		if(newList) {
+			var newStyles = listToStyles(newList, options);
+			addStylesToDom(newStyles, options);
+		}
+
+		for (var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+
+			if(domStyle.refs === 0) {
+				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+};
+
+function addStylesToDom (styles, options) {
+	for (var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+
+		if(domStyle) {
+			domStyle.refs++;
+
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles (list, options) {
+	var styles = [];
+	var newStyles = {};
+
+	for (var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = options.base ? item[0] + options.base : item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+
+		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
+		else newStyles[id].parts.push(part);
+	}
+
+	return styles;
+}
+
+function insertStyleElement (options, style) {
+	var target = getElement(options.insertInto)
+
+	if (!target) {
+		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+	}
+
+	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+
+	if (options.insertAt === "top") {
+		if (!lastStyleElementInsertedAtTop) {
+			target.insertBefore(style, target.firstChild);
+		} else if (lastStyleElementInsertedAtTop.nextSibling) {
+			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			target.appendChild(style);
+		}
+		stylesInsertedAtTop.push(style);
+	} else if (options.insertAt === "bottom") {
+		target.appendChild(style);
+	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
+		var nextSibling = getElement(options.insertAt.before, target);
+		target.insertBefore(style, nextSibling);
+	} else {
+		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+	}
+}
+
+function removeStyleElement (style) {
+	if (style.parentNode === null) return false;
+	style.parentNode.removeChild(style);
+
+	var idx = stylesInsertedAtTop.indexOf(style);
+	if(idx >= 0) {
+		stylesInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement (options) {
+	var style = document.createElement("style");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+
+	if(options.attrs.nonce === undefined) {
+		var nonce = getNonce();
+		if (nonce) {
+			options.attrs.nonce = nonce;
+		}
+	}
+
+	addAttrs(style, options.attrs);
+	insertStyleElement(options, style);
+
+	return style;
+}
+
+function createLinkElement (options) {
+	var link = document.createElement("link");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+	options.attrs.rel = "stylesheet";
+
+	addAttrs(link, options.attrs);
+	insertStyleElement(options, link);
+
+	return link;
+}
+
+function addAttrs (el, attrs) {
+	Object.keys(attrs).forEach(function (key) {
+		el.setAttribute(key, attrs[key]);
+	});
+}
+
+function getNonce() {
+	if (false) {
+		return null;
+	}
+
+	return __webpack_require__.nc;
+}
+
+function addStyle (obj, options) {
+	var style, update, remove, result;
+
+	// If a transform function was defined, run it on the css
+	if (options.transform && obj.css) {
+	    result = typeof options.transform === 'function'
+		 ? options.transform(obj.css) 
+		 : options.transform.default(obj.css);
+
+	    if (result) {
+	    	// If transform returns a value, use that instead of the original css.
+	    	// This allows running runtime transformations on the css.
+	    	obj.css = result;
+	    } else {
+	    	// If the transform function returns a falsy value, don't add this css.
+	    	// This allows conditional loading of css
+	    	return function() {
+	    		// noop
+	    	};
+	    }
+	}
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+
+		style = singleton || (singleton = createStyleElement(options));
+
+		update = applyToSingletonTag.bind(null, style, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+
+	} else if (
+		obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function"
+	) {
+		style = createLinkElement(options);
+		update = updateLink.bind(null, style, options);
+		remove = function () {
+			removeStyleElement(style);
+
+			if(style.href) URL.revokeObjectURL(style.href);
+		};
+	} else {
+		style = createStyleElement(options);
+		update = applyToTag.bind(null, style);
+		remove = function () {
+			removeStyleElement(style);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle (newObj) {
+		if (newObj) {
+			if (
+				newObj.css === obj.css &&
+				newObj.media === obj.media &&
+				newObj.sourceMap === obj.sourceMap
+			) {
+				return;
+			}
+
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag (style, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (style.styleSheet) {
+		style.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = style.childNodes;
+
+		if (childNodes[index]) style.removeChild(childNodes[index]);
+
+		if (childNodes.length) {
+			style.insertBefore(cssNode, childNodes[index]);
+		} else {
+			style.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag (style, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		style.setAttribute("media", media)
+	}
+
+	if(style.styleSheet) {
+		style.styleSheet.cssText = css;
+	} else {
+		while(style.firstChild) {
+			style.removeChild(style.firstChild);
+		}
+
+		style.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink (link, options, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	/*
+		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+		and there is no publicPath defined then lets turn convertToAbsoluteUrls
+		on by default.  Otherwise default to the convertToAbsoluteUrls option
+		directly
+	*/
+	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+	if (options.convertToAbsoluteUrls || autoFixUrls) {
+		css = fixUrls(css);
+	}
+
+	if (sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = link.href;
+
+	link.href = URL.createObjectURL(blob);
+
+	if(oldSrc) URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.view = undefined;
+
+var _events = __webpack_require__(12);
+
+var _controller = __webpack_require__(1);
+
+var $ = __webpack_require__(0);
+
+var view = function () {
+
+	return {
+
+		/********* create and render list items 
+  	@params : data as array of json
+  **********/
+		renderHTML: function renderHTML(data) {
+			var html = "";
+			var img_name = "";
+			var total = 0;
+			var load = document.getElementById("loader");
+			for (var i = 0; i < data.length; i++) {
+
+				total = total + parseInt(data[i].price) * data[i].quantity;
+
+				html += '<li>\n\t\t\t\t<div class="listitem_block">\n\t\t\t\t\t<div class="peritem_block" data-id="' + data[i].id + '" tabindex="-1">\n\t\t\t\t\t<div class="img_block" tabindex="-1"><img data-role="image" data-img="' + data[i].img_name + '" src="src/images/' + data[i].img_name + '" alt="' + data[i].title + '"></div>\n\t\t\t\t\t<div class="content_block" tabindex="-1">\n\t\t\t\t\t\t<h5 class="item_title" data-title="' + data[i].title + '">' + data[i].title + '</h5>\n\t\t\t\t\t\t<p data-style="' + data[i].style + '">Style #: ' + data[i].style + '</p>\n\t\t\t\t\t\t<p data-color="' + data[i].color + '" style="text-transform: capitalize;">Color: ' + data[i].color + '</p>\n\t\t\t\t\t\t<p data-size="' + data[i].size + '" class="size_mobile">Size: ' + data[i].size + '</p>\n\t\t\t\t\t\t<p class="quantity_mobile" data-quantity="' + data[i].quantity + '">QTY: <input type="text" value="' + data[i].quantity + '" disabled></p>\n\t\t\t\t\t\t<p class="price_mobile" data-price="' + data[i].price + '"><sup>$</sup><strong>' + data[i].price + '</strong></p>\n\t\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t\t\t<ul class="action_block" tabindex="-1">\n\t\t\t\t\t\t\t<li class="editBtn"><a href="javascript:void(0);" id="editList">Edit</a> &nbsp;</li>\n\t\t\t\t\t\t\t<li>&nbsp;&nbsp;<a href="javascript:void(0);" id="remove"><strong>X</strong> Remove &nbsp;</a></li>\n\t\t\t\t\t\t\t<li>&nbsp;&nbsp;<a href="javascript:void(0);">Save for Later</a></li>\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div data-size="' + data[i].size + '" class="size">' + data[i].size + '</div>\n\t\t\t\t\t<div data-quantity="' + data[i].quantity + '" class="quantity"><input type="text" value="' + data[i].quantity + '" disabled></div>\n\t\t\t\t\t<div data-price="' + data[i].price + '" class="price"><sup>$</sup>' + data[i].price + '</div>\n\t\t\t\t</div>\n\t\t\t\t</li>';
+			}
+			document.getElementById('list').innerHTML = html;
+			$(".loading").hide();
+			_events.event.bindListEvents(data);
+
+			$(".sub_amount").html("<sup>$</sup>" + parseInt(total) + ".00");
+			$(".total_amount").html("<h4><sup>$</sup>" + (parseInt(total) - 7) + ".00</h4>");
+		},
+
+		/******** open popup 
+  	@params : obj as data items of selected list 
+  ********/
+		showPopup: function showPopup(data, obj) {
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].id == obj.id) {
+					for (var j = 0; j < data[i].images.length; j++) {
+						if (data[i].images[j].yellow) {
+							obj.yellowImg = data[i].images[j].yellow;
+						} else if (data[i].images[j].green) {
+							obj.greenImg = data[i].images[j].green;
+						} else if (data[i].images[j].default) {
+							obj.defaultImg = data[i].images[j].default;
+							obj.bgcolor = data[i].images[j].default.split(".")[0];
+						}
+					}
+				}
+			}
+			var html = "";
+			var ref = this;
+			html += '<div class="modal_leftpart">\n\t\t\t\t\t\t<div class="mainBlock_leftPart">\n\t\t\t   \t\t\t<div class="line"></div>\n\t\t\t   \t\t\t<div class="content_leftpart"><h4>' + obj.title + '</h4><p><sup>$</sup>' + obj.price + '</p><div>' + obj.style + ' <br> <a href="javascript:void(0)" id="' + obj.id + '" class="yellow"></a><a href="javascript:void(0)" id="' + obj.id + '" class="green"></a><a href="javascript:void(0)" id="' + obj.id + '" class="default"></a></div></div><div>\n\t\t\t   \t\t\t\t<div class="styled-select">\n\t\t\t\t\t\t\t   <select id="size_select">\n\t\t\t\t\t\t\t     <option> SIZE : </option>\n\t\t\t\t\t\t\t     <option> S </option>\n\t\t\t\t\t\t\t     <option> M </option>\n\t\t\t\t\t\t\t     <option> L </option>\n\t\t\t\t\t\t\t   </select>\n\t\t\t\t\t\t\t  <span class="fa fa-sort-desc"></span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class="styled-select ">\n\t\t\t\t\t\t\t   <select id="qty_select">\n\t\t\t\t\t\t\t     <option> QTY : </option>\n\t\t\t\t\t\t\t     <option> 1 </option>\n\t\t\t\t\t\t\t     <option> 2 </option>\n\t\t\t\t\t\t\t     <option> 3 </option>\n\t\t\t\t\t\t\t   </select>\n\t\t\t\t\t\t\t  <span class="fa fa-sort-desc"></span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class="continue_btn editbtn" id="edit"><input type="button" value="EDIT"></div>\n\t\t\t\t\t\t<div class="detail_link"><a href="javascript:void(0)">See product details</a></div>\n\t\t\t   \t\t\t</div>\n\t\t   \t\t\t</div>\n\t\t   \t<div class="modal_rightpart"><img src="src/images/' + obj.img + '" alt="' + obj.title + '">\n\t\t   \t</div>';
+			document.getElementById("modal_body").innerHTML = html;
+
+			$("#size_select").val(obj.size);
+			$("#qty_select").val(obj.quantity);
+
+			_events.event.bindevents_Popup(obj);
+		}
+	};
+}();
+
+exports.view = view;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(6);
+
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(1)(false);
+"use strict";
+
+
+__webpack_require__(7);
+
+__webpack_require__(10);
+
+var _controller = __webpack_require__(1);
+
+window.addEventListener("DOMContentLoaded", function () {
+	_controller.controller.loadData();
+});
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(8);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(3)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {
+	module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/sass-loader/lib/loader.js!./styles.scss", function() {
+		var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/sass-loader/lib/loader.js!./styles.scss");
+
+		if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
 // imports
 
 
 // module
-exports.push([module.i, "body {\n  margin: 0 auto;\n  width: 80%;\n  font-family: 'Lato light', sans-serif;\n  font-size: 1rem;\n  word-spacing: 2px; }\n\nheader {\n  text-align: left;\n  height: 100px;\n  margin-top: 10px; }\n\nsection.List_View ul.list_header {\n  list-style-type: none;\n  display: flex;\n  padding: 0;\n  font-weight: 300;\n  text-transform: uppercase;\n  color: #716d6d;\n  letter-spacing: 1px;\n  border-top: 1px solid #ccc;\n  border-bottom: 7px solid #ccc;\n  padding: 1rem 0 1rem 0; }\n\nsection.List_View ul.list_header li:first-child {\n  flex-basis: 70%; }\n\nsection.List_View ul.list_header li.other {\n  flex: 1;\n  text-align: center; }\n\nsection.List_View ul.list_header li:last-child {\n  flex: 1;\n  text-align: right; }\n\nsection.List_View ul.list_section {\n  list-style-type: none;\n  margin: 0;\n  padding: 0; }\n\nsection.List_View ul.list_section > li:not(:last-child) {\n  border-bottom: 1px solid #ccc;\n  padding-bottom: 2rem;\n  margin-bottom: 2rem; }\n\n.listitem_block {\n  display: flex; }\n\n.peritem_block {\n  flex-basis: 70%; }\n\n.img_block {\n  float: left;\n  width: 12rem;\n  height: 12rem; }\n\n.img_block img {\n  height: 100%;\n  width: 100%; }\n\n.content_block {\n  line-height: 0.2;\n  padding: 10px 0 0px 0px;\n  display: flex;\n  flex-direction: column; }\n\n.item_title {\n  word-spacing: 5px;\n  color: #5f5d5d;\n  font-size: 1.1rem; }\n\n.content_block p {\n  color: #797474;\n  font-weight: 300;\n  line-height: 0.5; }\n\n.action_block {\n  display: flex;\n  flex-direction: row;\n  list-style-type: none;\n  padding: 0;\n  margin-top: 3rem;\n  text-transform: uppercase;\n  font-weight: 300;\n  color: #797474;\n  font-size: 0.9rem; }\n\n.action_block li a {\n  text-decoration: none;\n  color: #797474; }\n\n.action_block li:not(:last-child) {\n  border-right: 1px solid #ccc; }\n\n.size, .quantity {\n  flex: 1;\n  text-align: center;\n  color: #5f5d5d; }\n\n.quantity input[type=text] {\n  width: 50px;\n  height: 30px;\n  color: #5f5d5d;\n  text-align: center; }\n\n.price {\n  flex: 1;\n  text-align: right;\n  font-size: 1.2rem; }\n\n.edit li:not(:last-child) {\n  border-right: 1px solid #ccc; }\n\n.horizontal_line {\n  border-bottom: 7px solid #ccc;\n  padding: 10px; }\n\n.article {\n  display: flex;\n  margin: 6rem 0 1rem 0;\n  flex-direction: row; }\n\n.left_article {\n  flex-basis: 30%; }\n\na.except {\n  font-weight: 100;\n  color: #807979;\n  text-decoration: none; }\n\n.left_article .leftContent a:not(.except) {\n  font-weight: 100;\n  text-decoration: underline;\n  color: #807979; }\n\n.right_article {\n  flex-basis: 70%;\n  border-bottom: 7px solid #ccc; }\n\n.right_article div.promotion {\n  display: flex;\n  border-bottom: 7px solid #ccc;\n  margin-bottom: 2rem;\n  padding-bottom: 1rem; }\n\n.right_article div.promotion .code {\n  flex-grow: 3;\n  text-transform: uppercase;\n  word-spacing: 2px;\n  letter-spacing: 0.5px;\n  font-weight: 300;\n  color: #5a5757; }\n\n.right_article div.promotion p input[type=text] {\n  width: 12rem;\n  height: 2.5rem;\n  background-color: transparent;\n  border: 1px solid #ccc; }\n\n.right_article div.promotion p input[type=button] {\n  height: 2.5rem;\n  padding: 0 2.3rem 0 2.3rem;\n  background: transparent;\n  color: #000;\n  letter-spacing: 2px;\n  text-transform: uppercase;\n  border: 1px solid #ccc; }\n\n.invoice_block {\n  display: flex;\n  flex-direction: column; }\n\n.subtotal_block, .coupon_block, .estimate_block {\n  padding: 1rem 0 1rem 0; }\n\n.subtotal_block .subtotal, .coupon_block .coupon, .estimate_block .estimate {\n  float: left;\n  width: 50%; }\n\n.subtotal_block .sub_amount, .coupon_block .coupon_amount, .estimate_block .estimate_amount {\n  text-align: right; }\n\n.common {\n  line-height: 1;\n  color: #a29e9e;\n  word-spacing: 2px;\n  font-size: 0.9rem; }\n\n.small {\n  display: none; }\n\n.large {\n  display: block; }\n\n.total_block {\n  padding: 1rem 0 1rem 0;\n  border-top: 1px solid #ccc;\n  margin: 1.5rem 0 0rem 0; }\n\n.total_block .total {\n  float: left;\n  width: 50%; }\n\n.total_block .total_amount {\n  text-align: right; }\n\nfooter {\n  margin-bottom: 1rem; }\n\nfooter .continue_block {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end; }\n\nfooter .continue_block div.continue_link a {\n  color: #4c4545;\n  font-weight: 300;\n  text-decoration: underline;\n  padding: 10px;\n  font-size: small;\n  letter-spacing: 1px;\n  vertical-align: -webkit-baseline-middle; }\n\nfooter .continue_block .continue_btn input[type=button] {\n  background-color: #1761af;\n  color: #fff;\n  /* padding: 1rem; */\n  width: 8rem;\n  height: 2.5rem;\n  font-size: 13px;\n  letter-spacing: 1px;\n  border: 1px solid #ccc; }\n\nfooter .secure_block {\n  display: flex;\n  flex-direction: row;\n  color: #ada9a9;\n  font-size: 0.9rem;\n  justify-content: flex-end; }\n\nfooter .secure_text {\n  padding: 10px 0 0 0; }\n\n.signin {\n  display: none;\n  padding: 1rem;\n  color: #a29e9e;\n  font-size: 0.9rem; }\n\n.signin a {\n  text-transform: uppercase;\n  text-decoration: underline;\n  color: #a29e9e; }\n\n#itemOnHeader {\n  display: none;\n  text-align: right;\n  font-weight: 300;\n  text-transform: uppercase;\n  color: #716d6d;\n  letter-spacing: 1px; }\n\n.quantity_mobile, .size_mobile, .price_mobile {\n  display: none; }\n\n.quantity_mobile {\n  padding: 0.5rem 0 0.5rem 0; }\n\n.quantity_mobile input[type=text] {\n  width: 40px;\n  text-align: center; }\n\n.price_mobile {\n  font-size: 1.2rem;\n  letter-spacing: 1px;\n  color: #3e3e3e !important; }\n\n/********* modal **********/\n.modal {\n  display: none;\n  position: fixed;\n  z-index: 1;\n  padding-top: 100px;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  background-color: black;\n  background-color: rgba(0, 0, 0, 0.4); }\n\n/* Modal Content */\n.modal-content {\n  background-color: #fefefe;\n  margin: auto;\n  padding: 25px;\n  border: 1px solid #888;\n  width: 80%; }\n\n.modal-body {\n  display: flex;\n  flex-direction: row; }\n\n.modal-body .modal_leftpart {\n  flex-basis: 50%;\n  text-align: center; }\n\n.modal-body .modal_leftpart .mainBlock_leftPart {\n  display: flex;\n  flex-direction: column;\n  padding-top: 0rem; }\n\n.line {\n  width: 50%;\n  margin-left: 25%;\n  margin-bottom: 2rem;\n  border-bottom: 6px inset #e4e1e1; }\n\n.content_leftpart h4 {\n  letter-spacing: 1px;\n  color: #6d6666;\n  font-weight: 100;\n  font-size: 1.2rem; }\n\n.content_leftpart p {\n  font-size: 4rem;\n  font-family: serif;\n  margin: 0; }\n\n.content_leftpart p sup {\n  font-size: 55%;\n  padding: 10px 10px 10px 10px;\n  font-weight: 100; }\n\n.content_leftpart div {\n  font-weight: 100;\n  display: inline-block;\n  line-height: 2; }\n\n.content_leftpart div a {\n  background-color: #e4e473;\n  width: 30px;\n  height: 22px;\n  float: left;\n  margin: 0 0.5rem 1rem 0.5rem; }\n\n.content_leftpart div #yellow:hover {\n  transform: scale(1.2);\n  border: 1px solid #ccc; }\n\n.content_leftpart div a:last-child {\n  background-color: #8ac58a;\n  width: 30px;\n  height: 22px;\n  display: block; }\n\n.content_leftpart div #green:hover {\n  transform: scale(1.2);\n  border: 1px solid #ccc; }\n\n.editbtn {\n  margin-top: 1rem; }\n\n.editbtn input[type=button] {\n  background-color: #1761af;\n  color: #fff;\n  width: 10rem;\n  height: 3.5rem;\n  font-size: 14px;\n  letter-spacing: 1px;\n  border: 1px solid #ccc;\n  font-weight: 300; }\n\n.detail_link {\n  margin-top: 1rem;\n  letter-spacing: 1px;\n  font-size: 0.9rem; }\n\n.detail_link a {\n  text-decoration: underline;\n  color: #000; }\n\n.modal_rightpart {\n  flex-basis: 50%;\n  text-align: center; }\n\n.modal_rightpart img {\n  width: 80%;\n  max-height: 400px; }\n\n/* The Close Button */\n.close {\n  color: #aaaaaa;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n  text-align: right; }\n\n.close:hover,\n.close:focus {\n  color: #000;\n  text-decoration: none;\n  cursor: pointer; }\n\n/******** custom select box ****/\n.styled-select {\n  border: 1px solid #ccc;\n  box-sizing: border-box;\n  border-radius: 3px;\n  overflow: hidden;\n  position: relative; }\n\n.styled-select, .styled-select select {\n  font-size: 0.9rem;\n  width: 90px;\n  display: inline-block;\n  font-weight: 300; }\n\nselect:focus {\n  outline: none; }\n\n.styled-select select {\n  height: 34px;\n  padding: 5px 0 5px 5px;\n  background: transparent;\n  border: none;\n  /*hide default down arrow in webkit */\n  -webkit-appearance: none; }\n\n@-moz-document url-prefix() {\n  .styled-select select {\n    width: 110%; } }\n\n.fa-sort-desc {\n  position: absolute;\n  top: 0;\n  right: 12px;\n  font-size: 24px;\n  color: #ccc; }\n\n@media only screen and (min-width: 650px) and (max-width: 1000px) {\n  .right_article div.promotion {\n    flex-wrap: wrap; }\n  .left_article {\n    flex-basis: 35%; }\n  .total_block .total {\n    width: 60%; }\n  .peritem_block {\n    flex-basis: 65%; }\n  .listitem_block {\n    font-size: 0.9rem; }\n  section.List_View ul.list_header li:first-child {\n    flex-basis: 65%; }\n  section.List_View ul.list_header {\n    font-size: 0.9rem; }\n  .action_block {\n    clear: both;\n    justify-content: space-evenly;\n    padding-top: 1.5rem; }\n  .modal_rightpart img {\n    width: 100%; } }\n\n@media only screen and (max-width: 650px) {\n  body {\n    width: 85%; }\n  .c {\n    display: none; }\n  header {\n    height: auto; }\n  header h1 {\n    font-size: 1.4rem; }\n  section article.left_article {\n    display: none; }\n  .large {\n    display: none; }\n  .small {\n    display: block; }\n  .article {\n    margin: 1.2rem 0 1.2rem 0; }\n  .right_article {\n    flex-basis: 100%; }\n  .right_article div.promotion {\n    display: block;\n    text-align: center;\n    border-bottom: 2px solid #ccc; }\n  .right_article div.promotion p input[type=text] {\n    float: left;\n    width: 10rem; }\n  .coupon_block {\n    order: 3; }\n  .invoice_block {\n    order: 2; }\n  .total_block {\n    order: 4; }\n  .subtotal_block .sub_amount, .coupon_block .coupon_amount {\n    font-size: 1.3rem; }\n  .subtotal_block .subtotal, .coupon_block .coupon, .estimate_block .estimate {\n    font-size: 0.9rem; }\n  .total_block .total h4 {\n    font-size: 1rem; }\n  .total_block .total_amount h4 {\n    font-size: 1.9rem; }\n  .right_article {\n    border: none; }\n  footer .continue_block {\n    display: flex;\n    flex-direction: column-reverse; }\n  footer .continue_block div.continue_link {\n    text-align: center;\n    padding: 1rem; }\n  footer .continue_block .continue_btn {\n    width: 100%; }\n  footer .continue_block .continue_btn input[type=button] {\n    background-color: #1761af;\n    color: #fff;\n    /* padding: 1rem; */\n    width: 100%;\n    height: 2.5rem;\n    font-size: 13px;\n    letter-spacing: 1px; }\n  footer .secure_block {\n    flex-direction: column-reverse;\n    text-align: center;\n    padding: 0 1.5rem 0 1.5rem; }\n  .signin {\n    display: block; }\n  .peritem_block {\n    flex-basis: 100%;\n    /*flex-direction: row;*/ }\n  .action_block {\n    clear: both;\n    justify-content: space-evenly;\n    padding-top: 1.5rem;\n    margin-top: 0; }\n  .size, .quantity, .price {\n    display: none; }\n  section.List_View ul.list_header li {\n    display: none; }\n  section.List_View ul.list_header {\n    border-top: none;\n    padding: 0 0 1rem 0; }\n  #itemOnHeader {\n    display: block; }\n  .items_small {\n    display: block; }\n  .img_block {\n    width: 11rem;\n    height: 11rem; }\n  .quantity_mobile, .size_mobile, .price_mobile {\n    display: block; }\n  .content_block p {\n    line-height: 0; }\n  .listitem_block {\n    font-size: 0.9rem; }\n  .modal-body {\n    flex-direction: column; }\n  .modal_leftpart {\n    order: 2; }\n  .modal {\n    padding-top: 50px; }\n  .modal_rightpart img {\n    width: 60%;\n    max-height: 300px; }\n  .content_leftpart h4 {\n    font-size: 1rem; }\n  .content_leftpart p {\n    font-size: 2.5rem; }\n  .modal-content {\n    padding: 10px; }\n  .modal-body .modal_leftpart .mainBlock_leftPart {\n    padding-top: 1rem; } }\n\n@media only screen and (max-width: 400px) {\n  body {\n    word-spacing: 1px;\n    font-size: 0.8rem; }\n  header {\n    height: auto; }\n  header h1 {\n    font-size: 1.2rem; }\n  .right_article div.promotion p input[type=text] {\n    width: 8rem; }\n  .right_article div.promotion p input[type=button] {\n    padding: 0 2rem 0 2rem; }\n  .subtotal_block .sub_amount, .coupon_block .coupon_amount {\n    font-size: 1.1rem; }\n  .subtotal_block .subtotal, .coupon_block .coupon, .estimate_block .estimate {\n    font-size: 0.8rem; }\n  .total_block .total h4 {\n    font-size: 0.8rem; }\n  .total_block .total_amount h4 {\n    font-size: 1.6rem; }\n  .common {\n    font-size: 0.8rem; }\n  .subtotal_block .subtotal, .estimate_block .estimate {\n    width: 55%; }\n  .img_block {\n    width: 8rem;\n    height: 8rem; }\n  .item_title {\n    font-size: 0.9rem; }\n  .quantity_mobile {\n    padding: 0; }\n  .price_mobile {\n    font-size: 1rem; }\n  .modal {\n    padding-top: 20px; }\n  .modal_rightpart img {\n    width: 50%;\n    max-height: 200px; } }\n", ""]);
+exports.push([module.i, "body {\n  margin: 0 auto;\n  width: 80%;\n  font-family: 'Lato light', sans-serif;\n  font-size: 1rem;\n  word-spacing: 2px; }\n\nheader {\n  text-align: left;\n  height: 100px;\n  margin-top: 10px; }\n\nsection.List_View ul.list_header {\n  list-style-type: none;\n  display: flex;\n  padding: 0;\n  font-weight: 300;\n  text-transform: uppercase;\n  color: #716d6d;\n  letter-spacing: 1px;\n  border-top: 1px solid #ccc;\n  border-bottom: 7px solid #ccc;\n  padding: 1rem 0 1rem 0; }\n\nsection.List_View ul.list_header li:first-child {\n  flex-basis: 70%; }\n\nsection.List_View ul.list_header li.other {\n  flex: 1;\n  text-align: center; }\n\nsection.List_View ul.list_header li:last-child {\n  flex: 1;\n  text-align: right; }\n\nsection.List_View ul.list_section {\n  list-style-type: none;\n  margin: 0;\n  padding: 0; }\n\nsection.List_View ul.list_section > li:not(:last-child) {\n  border-bottom: 1px solid #ccc;\n  padding-bottom: 2rem;\n  margin-bottom: 2rem; }\n\n.listitem_block {\n  display: flex; }\n\n.peritem_block {\n  flex-basis: 70%; }\n\n.img_block {\n  float: left;\n  width: 12rem;\n  height: 12rem; }\n\n.img_block img {\n  height: 100%;\n  width: 100%; }\n\n.content_block {\n  line-height: 0.2;\n  padding: 10px 0 0px 0px;\n  display: flex;\n  flex-direction: column; }\n\n.item_title {\n  word-spacing: 5px;\n  color: #5f5d5d;\n  font-size: 1.1rem; }\n\n.content_block p {\n  color: #797474;\n  font-weight: 300;\n  line-height: 0.5; }\n\n.action_block {\n  display: flex;\n  flex-direction: row;\n  list-style-type: none;\n  padding: 0;\n  margin-top: 3rem;\n  text-transform: uppercase;\n  font-weight: 300;\n  color: #797474;\n  font-size: 0.9rem; }\n\n.action_block li a {\n  text-decoration: none;\n  color: #797474; }\n\n.action_block li:not(:last-child) {\n  border-right: 1px solid #ccc; }\n\n.size, .quantity {\n  flex: 1;\n  text-align: center;\n  color: #5f5d5d; }\n\n.quantity input[type=text] {\n  width: 50px;\n  height: 30px;\n  color: #5f5d5d;\n  text-align: center; }\n\n.price {\n  flex: 1;\n  text-align: right;\n  font-size: 1.2rem; }\n\n.edit li:not(:last-child) {\n  border-right: 1px solid #ccc; }\n\n.horizontal_line {\n  border-bottom: 7px solid #ccc;\n  padding: 10px; }\n\n.article {\n  display: flex;\n  margin: 6rem 0 1rem 0;\n  flex-direction: row; }\n\n.left_article {\n  flex-basis: 30%; }\n\na.except {\n  font-weight: 100;\n  color: #807979;\n  text-decoration: none; }\n\n.left_article .leftContent a:not(.except) {\n  font-weight: 100;\n  text-decoration: underline;\n  color: #807979; }\n\n.right_article {\n  flex-basis: 70%;\n  border-bottom: 7px solid #ccc; }\n\n.right_article div.promotion {\n  display: flex;\n  border-bottom: 7px solid #ccc;\n  margin-bottom: 2rem;\n  padding-bottom: 1rem; }\n\n.right_article div.promotion .code {\n  flex-grow: 3;\n  text-transform: uppercase;\n  word-spacing: 2px;\n  letter-spacing: 0.5px;\n  font-weight: 300;\n  color: #5a5757; }\n\n.right_article div.promotion p input[type=text] {\n  width: 12rem;\n  height: 2.5rem;\n  background-color: transparent;\n  border: 1px solid #ccc; }\n\n.right_article div.promotion p input[type=button] {\n  height: 2.5rem;\n  padding: 0 2.3rem 0 2.3rem;\n  background: transparent;\n  color: #000;\n  letter-spacing: 2px;\n  text-transform: uppercase;\n  border: 1px solid #ccc; }\n\n.invoice_block {\n  display: flex;\n  flex-direction: column; }\n\n.subtotal_block, .coupon_block, .estimate_block {\n  padding: 1rem 0 1rem 0; }\n\n.subtotal_block .subtotal, .coupon_block .coupon, .estimate_block .estimate {\n  float: left;\n  width: 50%; }\n\n.subtotal_block .sub_amount, .coupon_block .coupon_amount, .estimate_block .estimate_amount {\n  text-align: right; }\n\n.common {\n  line-height: 1;\n  color: #a29e9e;\n  word-spacing: 2px;\n  font-size: 0.9rem; }\n\n.small {\n  display: none; }\n\n.large {\n  display: block; }\n\n.total_block {\n  padding: 1rem 0 1rem 0;\n  border-top: 1px solid #ccc;\n  margin: 1.5rem 0 0rem 0; }\n\n.total_block .total {\n  float: left;\n  width: 50%; }\n\n.total_block .total_amount {\n  text-align: right; }\n\nfooter {\n  margin-bottom: 1rem; }\n\nfooter .continue_block {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end; }\n\nfooter .continue_block div.continue_link a {\n  color: #4c4545;\n  font-weight: 300;\n  text-decoration: underline;\n  padding: 10px;\n  font-size: small;\n  letter-spacing: 1px;\n  vertical-align: -webkit-baseline-middle; }\n\nfooter .continue_block .continue_btn input[type=button] {\n  background-color: #1761af;\n  color: #fff;\n  /* padding: 1rem; */\n  width: 8rem;\n  height: 2.5rem;\n  font-size: 13px;\n  letter-spacing: 1px;\n  border: 1px solid #ccc; }\n\nfooter .secure_block {\n  display: flex;\n  flex-direction: row;\n  color: #ada9a9;\n  font-size: 0.9rem;\n  justify-content: flex-end; }\n\nfooter .secure_text {\n  padding: 10px 0 0 0; }\n\n.signin {\n  display: none;\n  padding: 1rem;\n  color: #a29e9e;\n  font-size: 0.9rem; }\n\n.signin a {\n  text-transform: uppercase;\n  text-decoration: underline;\n  color: #a29e9e; }\n\n#itemOnHeader {\n  display: none;\n  text-align: right;\n  font-weight: 300;\n  text-transform: uppercase;\n  color: #716d6d;\n  letter-spacing: 1px; }\n\n.quantity_mobile, .size_mobile, .price_mobile {\n  display: none; }\n\n.quantity_mobile {\n  padding: 0.5rem 0 0.5rem 0; }\n\n.quantity_mobile input[type=text] {\n  width: 40px;\n  text-align: center; }\n\n.price_mobile {\n  font-size: 1.2rem;\n  letter-spacing: 1px;\n  color: #3e3e3e !important; }\n\n/********* modal **********/\n.modal {\n  display: none;\n  position: fixed;\n  z-index: 1;\n  padding-top: 100px;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  background-color: black;\n  background-color: rgba(0, 0, 0, 0.4); }\n\n/* Modal Content */\n.modal-content {\n  background-color: #fefefe;\n  margin: auto;\n  padding: 25px;\n  border: 1px solid #888;\n  width: 80%; }\n\n.modal-body {\n  display: flex;\n  flex-direction: row; }\n\n.modal-body .modal_leftpart {\n  flex-basis: 50%;\n  text-align: center; }\n\n.modal-body .modal_leftpart .mainBlock_leftPart {\n  display: flex;\n  flex-direction: column;\n  padding-top: 0rem; }\n\n.line {\n  width: 50%;\n  margin-left: 25%;\n  margin-bottom: 2rem;\n  border-bottom: 6px inset #e4e1e1; }\n\n.content_leftpart h4 {\n  letter-spacing: 1px;\n  color: #6d6666;\n  font-weight: 100;\n  font-size: 1.2rem; }\n\n.content_leftpart p {\n  font-size: 4rem;\n  font-family: serif;\n  margin: 0; }\n\n.content_leftpart p sup {\n  font-size: 55%;\n  padding: 10px 10px 10px 10px;\n  font-weight: 100; }\n\n.content_leftpart div {\n  font-weight: 100;\n  display: inline-block;\n  line-height: 2; }\n\n.content_leftpart div .yellow {\n  background-color: #e4e473;\n  width: 30px;\n  height: 22px;\n  float: left;\n  margin: 0 0.5rem 1rem 0.5rem; }\n\n.content_leftpart div .yellow:hover {\n  transform: scale(1.2);\n  border: 1px solid #0e0e0e; }\n\n.content_leftpart div .green {\n  background-color: #8ac58a;\n  width: 30px;\n  height: 22px;\n  float: left; }\n\n.content_leftpart div .green:hover {\n  transform: scale(1.2);\n  border: 1px solid #0e0e0e; }\n\n.content_leftpart div .default {\n  width: 30px;\n  height: 22px;\n  float: left;\n  margin: 0 1rem 1rem 0.5rem; }\n\n.content_leftpart div .default:hover {\n  transform: scale(1.2);\n  border: 1px solid #0e0e0e; }\n\n.active {\n  transform: scale(1.2);\n  border: 1px solid #0e0e0e; }\n\n.editbtn {\n  margin-top: 1rem; }\n\n.editbtn input[type=button] {\n  background-color: #1761af;\n  color: #fff;\n  width: 10rem;\n  height: 3.5rem;\n  font-size: 14px;\n  letter-spacing: 1px;\n  border: 1px solid #ccc;\n  font-weight: 300; }\n\n.detail_link {\n  margin-top: 1rem;\n  letter-spacing: 1px;\n  font-size: 0.9rem; }\n\n.detail_link a {\n  text-decoration: underline;\n  color: #000; }\n\n.modal_rightpart {\n  flex-basis: 50%;\n  text-align: center; }\n\n.modal_rightpart img {\n  width: 80%;\n  max-height: 400px; }\n\n/* The Close Button */\n.close {\n  color: #aaaaaa;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n  text-align: right; }\n\n.close:hover,\n.close:focus {\n  color: #000;\n  text-decoration: none;\n  cursor: pointer; }\n\n/******** custom select box ****/\n.styled-select {\n  border: 1px solid #ccc;\n  box-sizing: border-box;\n  border-radius: 3px;\n  overflow: hidden;\n  position: relative; }\n\n.styled-select, .styled-select select {\n  font-size: 0.9rem;\n  width: 90px;\n  display: inline-block;\n  font-weight: 300; }\n\nselect:focus {\n  outline: none; }\n\n.styled-select select {\n  height: 34px;\n  padding: 5px 0 5px 5px;\n  background: transparent;\n  border: none;\n  /*hide default down arrow in webkit */\n  -webkit-appearance: none; }\n\n@-moz-document url-prefix() {\n  .styled-select select {\n    width: 110%; } }\n\n.fa-sort-desc {\n  position: absolute;\n  top: 0;\n  right: 12px;\n  font-size: 24px;\n  color: #ccc; }\n\n@media only screen and (min-width: 650px) and (max-width: 1000px) {\n  .right_article div.promotion {\n    flex-wrap: wrap; }\n  .left_article {\n    flex-basis: 35%; }\n  .total_block .total {\n    width: 60%; }\n  .peritem_block {\n    flex-basis: 65%; }\n  .listitem_block {\n    font-size: 0.9rem; }\n  section.List_View ul.list_header li:first-child {\n    flex-basis: 65%; }\n  section.List_View ul.list_header {\n    font-size: 0.9rem; }\n  .action_block {\n    clear: both;\n    justify-content: space-evenly;\n    padding-top: 1.5rem; }\n  .modal_rightpart img {\n    width: 100%; } }\n\n@media only screen and (max-width: 650px) {\n  body {\n    width: 85%; }\n  .c {\n    display: none; }\n  header {\n    height: auto; }\n  header h1 {\n    font-size: 1.4rem; }\n  section article.left_article {\n    display: none; }\n  .large {\n    display: none; }\n  .small {\n    display: block; }\n  .article {\n    margin: 1.2rem 0 1.2rem 0; }\n  .right_article {\n    flex-basis: 100%; }\n  .right_article div.promotion {\n    display: block;\n    text-align: center;\n    border-bottom: 2px solid #ccc; }\n  .right_article div.promotion p input[type=text] {\n    float: left;\n    width: 10rem; }\n  .coupon_block {\n    order: 3; }\n  .invoice_block {\n    order: 2; }\n  .total_block {\n    order: 4; }\n  .subtotal_block .sub_amount, .coupon_block .coupon_amount {\n    font-size: 1.3rem; }\n  .subtotal_block .subtotal, .coupon_block .coupon, .estimate_block .estimate {\n    font-size: 0.9rem; }\n  .total_block .total h4 {\n    font-size: 1rem; }\n  .total_block .total_amount h4 {\n    font-size: 1.9rem; }\n  .right_article {\n    border: none; }\n  footer .continue_block {\n    display: flex;\n    flex-direction: column-reverse; }\n  footer .continue_block div.continue_link {\n    text-align: center;\n    padding: 1rem; }\n  footer .continue_block .continue_btn {\n    width: 100%; }\n  footer .continue_block .continue_btn input[type=button] {\n    background-color: #1761af;\n    color: #fff;\n    /* padding: 1rem; */\n    width: 100%;\n    height: 2.5rem;\n    font-size: 13px;\n    letter-spacing: 1px; }\n  footer .secure_block {\n    flex-direction: column-reverse;\n    text-align: center;\n    padding: 0 1.5rem 0 1.5rem; }\n  .signin {\n    display: block; }\n  .peritem_block {\n    flex-basis: 100%;\n    /*flex-direction: row;*/ }\n  .action_block {\n    clear: both;\n    justify-content: space-evenly;\n    padding-top: 1.5rem;\n    margin-top: 0; }\n  .size, .quantity, .price {\n    display: none; }\n  section.List_View ul.list_header li {\n    display: none; }\n  section.List_View ul.list_header {\n    border-top: none;\n    padding: 0 0 1rem 0; }\n  #itemOnHeader {\n    display: block; }\n  .items_small {\n    display: block; }\n  .img_block {\n    width: 11rem;\n    height: 11rem; }\n  .quantity_mobile, .size_mobile, .price_mobile {\n    display: block; }\n  .content_block p {\n    line-height: 0; }\n  .listitem_block {\n    font-size: 0.9rem; }\n  .modal-body {\n    flex-direction: column; }\n  .modal_leftpart {\n    order: 2; }\n  .modal {\n    padding-top: 50px; }\n  .modal_rightpart img {\n    width: 60%;\n    max-height: 300px; }\n  .content_leftpart h4 {\n    font-size: 1rem; }\n  .content_leftpart p {\n    font-size: 2.5rem; }\n  .modal-content {\n    padding: 10px; }\n  .modal-body .modal_leftpart .mainBlock_leftPart {\n    padding-top: 1rem; } }\n\n@media only screen and (max-width: 400px) {\n  body {\n    word-spacing: 1px;\n    font-size: 0.8rem; }\n  header {\n    height: auto; }\n  header h1 {\n    font-size: 1.2rem; }\n  .right_article div.promotion p input[type=text] {\n    width: 8rem; }\n  .right_article div.promotion p input[type=button] {\n    padding: 0 2rem 0 2rem; }\n  .subtotal_block .sub_amount, .coupon_block .coupon_amount {\n    font-size: 1.1rem; }\n  .subtotal_block .subtotal, .coupon_block .coupon, .estimate_block .estimate {\n    font-size: 0.8rem; }\n  .total_block .total h4 {\n    font-size: 0.8rem; }\n  .total_block .total_amount h4 {\n    font-size: 1.6rem; }\n  .common {\n    font-size: 0.8rem; }\n  .subtotal_block .subtotal, .estimate_block .estimate {\n    width: 55%; }\n  .img_block {\n    width: 8rem;\n    height: 8rem; }\n  .item_title {\n    font-size: 0.9rem; }\n  .quantity_mobile {\n    padding: 0; }\n  .price_mobile {\n    font-size: 1rem; }\n  .modal {\n    padding-top: 20px; }\n  .modal_rightpart img {\n    width: 50%;\n    max-height: 200px; } }\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports) {
 
 
@@ -11107,11 +11301,11 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(9);
+var content = __webpack_require__(11);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -11125,13 +11319,13 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(2)(content, options);
+var update = __webpack_require__(3)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
 if(false) {
-	module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./loader.scss", function() {
-		var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./loader.scss");
+	module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/sass-loader/lib/loader.js!./loader.scss", function() {
+		var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/sass-loader/lib/loader.js!./loader.scss");
 
 		if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 
@@ -11157,10 +11351,10 @@ if(false) {
 }
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(1)(false);
+exports = module.exports = __webpack_require__(2)(false);
 // imports
 
 
@@ -11171,7 +11365,7 @@ exports.push([module.i, "/* Absolute Center Spinner */\n.loading {\n  position: 
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11180,115 +11374,22 @@ exports.push([module.i, "/* Absolute Center Spinner */\n.loading {\n  position: 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.controller = undefined;
+exports.event = undefined;
 
-var _service = __webpack_require__(11);
+var _controller = __webpack_require__(1);
 
-var $ = __webpack_require__(3);
+var _view = __webpack_require__(4);
 
-var controller = function () {
+var $ = __webpack_require__(0);
+
+var event = function () {
 
 	return {
-
-		/**** upload local json data to firebase database ******/
-		uploadData: function uploadData() {
-			var _this = this;
-
-			_service.ajaxCall.loadData('data.json').then(function (data) {
-				firebase.database().ref('cart_items').set(data);
-				_this.renderHTML(data.data);
-			}, function (error) {});
-		},
-
-		/********** load data from firebase, if data not found on firebase then upload data ***********/
-		loadData: function loadData() {
-			var _this2 = this;
-
-			$(".loading").show();
-			_service.ajaxCall.loadData('https://demoapp-8fd72.firebaseio.com/cart_items.json').then(function (data) {
-				console.log(data);
-				if (!data || data == 'undefined' || data == null) _this2.uploadData();else _this2.renderHTML(data.data);
-			}, function (error) {});
-		},
-
-		/********  update new data to firebase 
-  	@params : key as id and obj as data need to change 
-  ************/
-		updateData: function updateData(key, obj) {
-			var _this3 = this;
-
-			$(".loading").show();
-			_service.ajaxCall.loadData('https://demoapp-8fd72.firebaseio.com/cart_items.json').then(function (data) {
-				var ref = _this3;
-				var newObj = {
-					"data": data.data
-				};
-				var updatedArray = newObj.data.map(function (item) {
-					if (item.id == key) {
-						item.size = obj.size;
-						item.color = obj.color;
-						item.quantity = obj.quantity;
-						if (obj.color == "yellow") {
-							item.images.map(function (res) {
-								if (res.yellow) {
-									item.img_name = res.yellow;
-								}
-							});
-						} else if (obj.color == "green") {
-							item.images.map(function (res) {
-								if (res.green) {
-									item.img_name = res.green;
-								}
-							});
-						} else {
-							item.images.map(function (res) {
-								if (res.default) {
-									item.img_name = res.default;
-								}
-							});
-						}
-					}
-					return item;
-				});
-				firebase.database().ref('cart_items').set(newObj, function (error) {
-					if (error) {} else {
-						var modal = document.getElementById("myModal");
-						modal.style.display = "none";
-						ref.loadData();
-					}
-				});
-			}, function (error) {
-				alert("error");
-			});
-		},
-
-		/********* create and render list items 
-  	@params : data as array of json
-  **********/
-		renderHTML: function renderHTML(data) {
-			var html = "";
-			var img_name = "";
-			var total = 0;
-			var load = document.getElementById("loader");
-			for (var i = 0; i < data.length; i++) {
-
-				total = total + parseInt(data[i].price) * data[i].quantity;
-
-				html += '<li>\n\t\t\t\t<div class="listitem_block">\n\t\t\t\t\t<div class="peritem_block" data-id="' + data[i].id + '" tabindex="-1">\n\t\t\t\t\t<div class="img_block" tabindex="-1"><img data-role="image" data-img="' + data[i].img_name + '" src="images/' + data[i].img_name + '" alt="' + data[i].title + '"></div>\n\t\t\t\t\t<div class="content_block" tabindex="-1">\n\t\t\t\t\t\t<h5 class="item_title" data-title="' + data[i].title + '">' + data[i].title + '</h5>\n\t\t\t\t\t\t<p data-style="' + data[i].style + '">Style #: ' + data[i].style + '</p>\n\t\t\t\t\t\t<p data-color="' + data[i].color + '">Color: ' + data[i].color + '</p>\n\t\t\t\t\t\t<p data-size="' + data[i].size + '" class="size_mobile">Size: ' + data[i].size + '</p>\n\t\t\t\t\t\t<p class="quantity_mobile" data-quantity="' + data[i].quantity + '">QTY: <input type="text" value="' + data[i].quantity + '"></p>\n\t\t\t\t\t\t<p class="price_mobile" data-price="' + data[i].price + '"><sup>$</sup><strong>' + data[i].price + '</strong></p>\n\t\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t\t\t<ul class="action_block" tabindex="-1">\n\t\t\t\t\t\t\t<li class="editBtn"><a href="javascript:void(0);" id="editList">Edit</a> &nbsp;</li>\n\t\t\t\t\t\t\t<li>&nbsp;&nbsp;<a href="javascript:void(0);" id="remove"><strong>X</strong> Remove &nbsp;</a></li>\n\t\t\t\t\t\t\t<li>&nbsp;&nbsp;<a href="javascript:void(0);">Save for Later</a></li>\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div data-size="' + data[i].size + '" class="size">' + data[i].size + '</div>\n\t\t\t\t\t<div data-quantity="' + data[i].quantity + '" class="quantity"><input type="text" value="' + data[i].quantity + '"></div>\n\t\t\t\t\t<div data-price="' + data[i].price + '" class="price"><sup>$</sup>' + data[i].price + '</div>\n\t\t\t\t</div>\n\t\t\t\t</li>';
-			}
-			document.getElementById('list').innerHTML = html;
-			$(".loading").hide();
-			this.bindListEvents(data);
-
-			$(".sub_amount").html("<sup>$</sup>" + parseInt(total) + ".00");
-			$(".total_amount").html("<h4><sup>$</sup>" + (parseInt(total) - 7) + ".00</h4>");
-		},
 
 		/******** bind events on list items after cretae dynamic list *******/
 		bindListEvents: function bindListEvents(data) {
 			var listitem = document.querySelectorAll('.listitem_block .peritem_block');
 			var modal = document.getElementById("myModal");
-			var span = document.getElementsByClassName("close")[0];
 			var datasets = "";
 			var ref = this;
 			var obj = {};
@@ -11303,7 +11404,6 @@ var controller = function () {
 
 					// item.addEventListener('click', function(event) {
 					item.onclick = function (event) {
-						console.log(event);
 						datasets = $(this).children('.content_block');
 						obj.id = $(this)[0].dataset.id;
 						obj.title = datasets[0].children[0].dataset.title;
@@ -11319,11 +11419,10 @@ var controller = function () {
 
 						if (event.target.id == 'editList') {
 							modal.style.display = "block";
-							ref.showPopup(data, obj);
+							_view.view.showPopup(data, obj);
 						}
 						if (event.target.id == 'remove') {
-							//modal.style.display = "block";
-							ref.removeItem(data, obj);
+							_controller.controller.removeItem(data, obj);
 						}
 					};
 				}
@@ -11341,35 +11440,6 @@ var controller = function () {
 					}
 				}
 			}
-
-			span.onclick = function () {
-				modal.style.display = "none";
-			};
-		},
-
-		/******** open popup 
-  	@params : obj as data items of selected list 
-  ********/
-		showPopup: function showPopup(data, obj) {
-			var arr = [];
-			for (var i = 0; i < data.length; i++) {
-				if (data[i].id == obj.id) {
-					for (var j = 0; j < data[i].images.length; j++) {
-						arr.push(data[i].images[j]);
-					}
-				}
-			}
-			obj.imgArr = arr;
-			console.log(obj);
-			var html = "";
-			var ref = this;
-			html += '<div class="modal_leftpart">\n\t\t\t\t\t\t<div class="mainBlock_leftPart">\n\t\t\t   \t\t\t<div class="line"></div>\n\t\t\t   \t\t\t<div class="content_leftpart"><h4>' + obj.title + '</h4><p><sup>$</sup>' + obj.price + '</p><div>' + obj.style + ' <br> <a href="javascript:void(0)" id="yellow"></a><a href="javascript:void(0)" id="green"></a></div></div><div>\n\t\t\t   \t\t\t\t<div class="styled-select">\n\t\t\t\t\t\t\t   <select id="size_select">\n\t\t\t\t\t\t\t     <option> SIZE : </option>\n\t\t\t\t\t\t\t     <option> S </option>\n\t\t\t\t\t\t\t     <option> M </option>\n\t\t\t\t\t\t\t     <option> L </option>\n\t\t\t\t\t\t\t   </select>\n\t\t\t\t\t\t\t  <span class="fa fa-sort-desc"></span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class="styled-select ">\n\t\t\t\t\t\t\t   <select id="qty_select">\n\t\t\t\t\t\t\t     <option> QTY : </option>\n\t\t\t\t\t\t\t     <option> 1 </option>\n\t\t\t\t\t\t\t     <option> 2 </option>\n\t\t\t\t\t\t\t     <option> 3 </option>\n\t\t\t\t\t\t\t   </select>\n\t\t\t\t\t\t\t  <span class="fa fa-sort-desc"></span>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class="continue_btn editbtn" id="edit"><input type="button" value="EDIT"></div>\n\t\t\t\t\t\t<div class="detail_link"><a href="javascript:void(0)">See product details</a></div>\n\t\t\t   \t\t\t</div>\n\t\t   \t\t\t</div>\n\t\t   \t<div class="modal_rightpart"><img src="images/' + obj.img + '" alt="' + obj.title + '">\n\t\t   \t</div>';
-			document.getElementById("modal_body").innerHTML = html;
-
-			$("#size_select").val(obj.size);
-			$("#qty_select").val(obj.quantity);
-
-			this.bindevents_Popup(obj);
 		},
 
 		/******* bind events on popup ********/
@@ -11377,82 +11447,64 @@ var controller = function () {
 			var selected_color = obj.color;
 			var ref = this;
 
-			$("#yellow").hover(function () {
-				//selected_color = $(this)[0].id;
-				for (var i = 0; i < obj.imgArr.length; i++) {
-					if (obj.imgArr[i].yellow) {
-						var yellow = obj.imgArr[i].yellow;
-					}
-				}
-				var img = "images/" + yellow;
+			$(".default").css("background-color", obj.bgcolor);
+
+			$(".yellow").hover(function () {
+				var img = "src/images/" + obj.yellowImg;
+				$(".modal_rightpart").find("img").attr("src", img);
+			});
+			$(".green").hover(function () {
+				var img = "src/images/" + obj.greenImg;
+				$(".modal_rightpart").find("img").attr("src", img);
+			});
+			$(".default").hover(function () {
+				var img = "src/images/" + obj.defaultImg;
 				$(".modal_rightpart").find("img").attr("src", img);
 			});
 
-			$("#green").hover(function () {
-				//selected_color = $(this)[0].id;
-				for (var i = 0; i < obj.imgArr.length; i++) {
-					if (obj.imgArr[i].green) {
-						var green = obj.imgArr[i].green;
-					}
-				}
-				var img = "images/" + green;
-				$(".modal_rightpart").find("img").attr("src", img);
+			$(".yellow").click(function () {
+				selected_color = "yellow";
+				$(this).addClass("active");
+				$("#green").removeClass("active");
+				$("#default").removeClass("active");
 			});
 
-			$("#yellow").click(function () {
-				selected_color = $(this)[0].id;
-				$(this).css("background-color", "#ecec0d");
-				$("#green").css("background-color", "#8ac58a");
+			$(".green").click(function () {
+				selected_color = "green";
+				$(this).addClass("active");
+				$("#yellow").removeClass("active");
+				$("#default").removeClass("active");
 			});
 
-			$("#green").click(function () {
-				selected_color = $(this)[0].id;
-				$(this).css("background-color", "#0eef0e");
-				$("#yellow").css("background-color", "#e4e473");
+			$(".default").click(function () {
+				selected_color = obj.bgcolor;
+				$(this).addClass("active");
+				$("#yellow").removeClass("active");
+				$("#green").removeClass("active");
 			});
 
 			document.getElementById("edit").addEventListener("click", function () {
-				console.log($("#size_select").val());
-				console.log($("#qty_select").val());
-				console.log(selected_color);
 				var updateItems = {
 					"size": $("#size_select").val(),
 					"quantity": $("#qty_select").val(),
 					"color": selected_color
 				};
-				ref.updateData(obj.id, updateItems);
+				_controller.controller.updateData(obj.id, updateItems);
 			});
-		},
 
-		removeItem: function removeItem(data, obj) {
-			var confirm = window.confirm("Do you really want to delete this item");
-			if (!confirm) {
-				return false;
-			}
-			var ref = this;
-			var newObj = {
-				"data": data
+			var close = document.getElementsByClassName("close")[0];
+			var modal = document.getElementById("myModal");
+			close.onclick = function () {
+				modal.style.display = "none";
 			};
-			for (var i = 0; i < newObj.data.length; i++) {
-				if (obj.id == newObj.data[i].id) {
-					newObj.data.splice(i, 1);
-				}
-			}
-			firebase.database().ref('cart_items').set(newObj, function (error) {
-				if (error) {} else {
-					alert("Removed Succesfully");
-					ref.loadData();
-				}
-			});
 		}
-
 	};
 }();
 
-exports.controller = controller;
+exports.event = event;
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11461,7 +11513,7 @@ exports.controller = controller;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var $ = __webpack_require__(3);
+var $ = __webpack_require__(0);
 
 var ajaxCall = {
   loadData: function loadData(url) {
@@ -11470,6 +11522,9 @@ var ajaxCall = {
       type: 'GET',
       success: function success(response) {
         return Promise.resolve(response);
+      },
+      error: function error(_error) {
+        return Promise.reject(_error);
       }
     });
   }

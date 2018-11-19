@@ -1,10 +1,9 @@
 var webpack = require('webpack');
 
 module.exports = {
-	entry: ['./script.js','./scss/styles.scss'],
+	entry: ['./src/script.js'],
 	output: {
-		filename: 'bundle.js',
-		publicPath: "./dist/"
+		filename: 'bundle.js'
 	},
 	devtool: 'sourcemap',
 	module: {
