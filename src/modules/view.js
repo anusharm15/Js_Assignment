@@ -13,11 +13,13 @@ var view = (function(){
 		renderHTML : function(data){
 			var html = "";
 			var img_name = "";
-			var total = 0;
+			var price = 0;
+			var sub_amount = 0;
 			var load = document.getElementById("loader");
 			for(var i=0; i<data.length; i++){
 				
-				total = total+ (parseInt(data[i].price) * data[i].quantity);
+				price =  (parseInt(data[i].price) * data[i].quantity);
+				sub_amount = sub_amount + price;
 
 				html += `<li>
 				<div class="listitem_block">
@@ -29,7 +31,7 @@ var view = (function(){
 						<p data-color="${data[i].color}" style="text-transform: capitalize;">Color: ${data[i].color}</p>
 						<p data-size="${data[i].size}" class="size_mobile">Size: ${data[i].size}</p>
 						<p class="quantity_mobile" data-quantity="${data[i].quantity}">QTY: <input type="text" value="${data[i].quantity}" disabled></p>
-						<p class="price_mobile" data-price="${data[i].price}"><sup>$</sup><strong>${data[i].price}</strong></p>
+						<p class="price_mobile" data-price="${price}"><sup>$</sup><strong>${price}</strong></p>
 						
 					</div>
 						<ul class="action_block" tabindex="-1">
@@ -40,7 +42,7 @@ var view = (function(){
 					</div>
 					<div data-size="${data[i].size}" class="size">${data[i].size}</div>
 					<div data-quantity="${data[i].quantity}" class="quantity"><input type="text" value="${data[i].quantity}" disabled></div>
-					<div data-price="${data[i].price}" class="price"><sup>$</sup>${data[i].price}</div>
+					<div data-price="${price}" class="price"><sup>$</sup>${price}</div>
 				</div>
 				</li>`
 			}
@@ -48,8 +50,8 @@ var view = (function(){
 			$(".loading").hide();
 			event.bindListEvents(data);
 
-			$(".sub_amount").html("<sup>$</sup>"+parseInt(total)+".00");
-			$(".total_amount").html("<h4><sup>$</sup>"+(parseInt(total)-7)+".00</h4>");
+			$(".sub_amount").html("<sup>$</sup>"+parseInt(sub_amount)+".00");
+			$(".total_amount").html("<h4><sup>$</sup>"+(parseInt(sub_amount)-7)+".00</h4>");
 
 		},
 
