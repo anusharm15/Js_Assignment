@@ -31,7 +31,7 @@ var view = (function(){
 						<p data-color="${data[i].color}" style="text-transform: capitalize;">Color: ${data[i].color}</p>
 						<p data-size="${data[i].size}" class="size_mobile">Size: ${data[i].size}</p>
 						<p class="quantity_mobile" data-quantity="${data[i].quantity}">QTY: <input type="text" value="${data[i].quantity}" disabled></p>
-						<p class="price_mobile" data-price="${price}"><sup>$</sup><strong>${price}</strong></p>
+						<p class="price_mobile" data-price="${price}"><sup>$</sup><strong>${price}.00</strong></p>
 						
 					</div>
 						<ul class="action_block" tabindex="-1">
@@ -42,7 +42,7 @@ var view = (function(){
 					</div>
 					<div data-size="${data[i].size}" class="size">${data[i].size}</div>
 					<div data-quantity="${data[i].quantity}" class="quantity"><input type="text" value="${data[i].quantity}" disabled></div>
-					<div data-price="${price}" class="price"><sup>$</sup>${price}</div>
+					<div data-price="${price}" class="price"><sup>$</sup>${price}.00</div>
 				</div>
 				</li>`
 			}
@@ -78,7 +78,7 @@ var view = (function(){
 			html +=`<div class="modal_leftpart">
 						<div class="mainBlock_leftPart">
 			   			<div class="line"></div>
-			   			<div class="content_leftpart"><h4>${obj.title}</h4><p><sup>$</sup>${obj.price}</p><div>${obj.style} <br> <a href="javascript:void(0)" id="${obj.id}" class="yellow"></a><a href="javascript:void(0)" id="${obj.id}" class="green"></a><a href="javascript:void(0)" id="${obj.id}" class="default"></a></div></div><div>
+			   			<div class="content_leftpart"><h4>${obj.title}</h4><p><sup>$</sup>${obj.price}.00</p><div>${obj.style} <br> <a href="javascript:void(0)" id="${obj.id}" class="yellow"></a><a href="javascript:void(0)" id="${obj.id}" class="green"></a><a href="javascript:void(0)" id="${obj.id}" class="default"></a></div></div><div>
 			   				<div class="styled-select">
 							   <select id="size_select">
 							     <option> SIZE : </option>
